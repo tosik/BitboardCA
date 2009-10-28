@@ -45,9 +45,15 @@ RELEASE_CFLAGS	= $(CFLAGS) -g
 all:	$(RELEASE_LIB_NAME) $(DEBUG_LIB_NAME)
 
 $(RELEASE_LIB_NAME): $(RELEASE_OBJS)
+	@if [ ! -d $(LIBDIR) ]; then \
+		mkdir $(LIBDIR); \
+	fi
 	$(AR) $(ARFLAGS) $(RELEASE_LIB_NAME) $(RELEASE_OBJS)
 
 $(DEBUG_LIB_NAME): $(DEBUG_OBJS)
+	@if [ ! -d $(LIBDIR) ]; then \
+		mkdir $(LIBDIR); \
+	fi
 	$(AR) $(ARFLAGS) $(DEBUG_LIB_NAME) $(DEBUG_OBJS)
 
 $(RELEASE_OBJS): $(SRCS)
