@@ -21,9 +21,10 @@
 CC	= g++
 INCDIR	= ../include/
 CFLAGS	= -O2 -Wall -I$(INCDIR)
-LDFLAGS	= -L../library/ -lbbca -lcppunit -ldl
-DEBUG_LDFLAGS	= -L../library/ -lbbcad -lcppunit -ldl -g
-RELEASE_LDFLAGS	= -L../library/ -lbbca -lcppunit -ldl
+LIBDIR	= ../library/
+LIBNAME	= bbca
+DEBUG_LDFLAGS	= -L$(LIBDIR) -l$(LIBNAME)d -lcppunit -ldl -g
+RELEASE_LDFLAGS	= -L$(LIBDIR) -l$(LIBNAME) -lcppunit -ldl
 
 DEBUG_CFLAGS	= $(CFLAGS) -g
 RELEASE_CFLAGS	= $(CFLAGS)
@@ -33,7 +34,7 @@ TARGETS = TestBitboardCA
 
 all: $(TARGETS)
 
-$(TARGETS): $(TARGETS).cpp
+$(TARGETS): $(TARGETS).cpp $(LIBDIR)/lib$(LIBNAME).a $(LIBDIR)/lib$(LIBNAME)d.a
 	$(CC) $(DEBUG_CFLAGS) -o $@d $< $(DEBUG_LDFLAGS)
 	$(CC) $(RELEASE_CFLAGS) -o $@ $< $(RELEASE_LDFLAGS)
 

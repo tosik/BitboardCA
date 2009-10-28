@@ -179,14 +179,16 @@ inline Bitboard CA::rule(Bitboard board, Bitboard s0, Bitboard s1, Bitboard s2,
 
 void CA::view()
 {
-	
+	std::cout << std::endl;
 	for(int y=0; y<size_y; y++)
 	{
 		for(int x=0; x<size_x; x++)
 			std::cout << (getCellState(x,y) ? "* " : "  ");
 		std::cout << std::endl;
 	}
-	std::cout << "----------------" << std::endl;
+	for (int x=0; x<size_x*2; x++)
+		std::cout << "-";
+	std::cout << std::endl;
 }
 
 void CA::viewBitboard(Bitboard b)
