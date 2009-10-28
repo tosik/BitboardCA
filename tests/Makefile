@@ -22,8 +22,8 @@ CC	= g++
 INCDIR	= ../include/
 CFLAGS	= -O2 -Wall -I$(INCDIR)
 LDFLAGS	= -L../library/ -lbbca -lcppunit -ldl
-DEBUG_LDFLAGS	= -L../library/ -lbbca -lcppunit -ldl
-RELEASE_LDFLAGS	= -L../library/ -lbbcad -lcppunit -ldl -g
+DEBUG_LDFLAGS	= -L../library/ -lbbca -lcppunit -ldl -g
+RELEASE_LDFLAGS	= -L../library/ -lbbcad -lcppunit -ldl
 
 DEBUG_CFLAGS	= $(CFLAGS)
 RELEASE_CFLAGS	= $(CFLAGS) -g
@@ -34,12 +34,12 @@ TARGETS = TestBitboardCA
 all: $(TARGETS)
 
 $(TARGETS): $(TARGETS).cpp
-	$(CC) $(DEBUG_CFLAGS) -o $@ $< $(DEBUG_LDFLAGS)
+	$(CC) $(DEBUG_CFLAGS) -o $@d $< $(DEBUG_LDFLAGS)
 	$(CC) $(RELEASE_CFLAGS) -o $@ $< $(RELEASE_LDFLAGS)
 
 clean:
-	rm -f $(TARGETS)
-	rm -f $(TARGETS:%=%.exe) # for cygwin
+	rm -f $(TARGETS) $(TARGETS:%=%d)
+	rm -f $(TARGETS:%=%.exe)  $(TARGETS:%=%d.exe) # for cygwin
 
 run: $(TARGETS)
 	[ -d ./results ] || mkdir results
