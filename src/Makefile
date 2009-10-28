@@ -67,14 +67,4 @@ clean:
 	rm -f $(DEBUG_OBJS)
 	rm -f $(RELEASE_LIB_NAME)
 	rm -f $(DEBUG_LIB_NAME)
-	cd sample; $(MAKE) clean
-	cd tests; $(MAKE) clean
-
-.PHONY: sample
-sample:
-	cd sample; $(MAKE)
-
-.PHONY: test
-test:
-	cd tests; $(MAKE) all run
 
