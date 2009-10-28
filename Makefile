@@ -20,7 +20,7 @@
 
 PROJECT_NAME	= bbca
 SRCDIR		= src
-OUTDIR		= out
+OUTDIR		= src
 LIBDIR		= ./library
 INCDIR		= ./include
 OUTPUT_NAME	= $(LIBDIR)/lib$(PROJECT_NAME).a
