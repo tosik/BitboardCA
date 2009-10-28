@@ -18,36 +18,20 @@
 #
 
 
-PROJECT_NAME	= bbca
-SRCDIR		= src
-OUTDIR		= src
-LIBDIR		= ./library
-INCDIR		= ./include
-OUTPUT_NAME	= $(LIBDIR)/lib$(PROJECT_NAME).a
-OBJS		= $(OUTDIR)/bbca.o
-
-CC	= g++
-CFLAGS	= -O2 -Wall -I$(INCDIR)
-LDFLAGS	= 
-AR	= ar
-ARFLAGS	= cru
 MAKE	= make
 
-
-all:	$(OUTPUT_NAME)
-
-$(OUTPUT_NAME): $(OBJS)
-	$(AR) $(ARFLAGS) $(OUTPUT_NAME) $(OBJS)
-
-$(OBJS):
-	$(CC) $(CFLAGS) -o $@ -c $(SRCDIR)/$(notdir $*).cpp
+.PHONY: all
+all:	lib sample test
 
 .PHONY: clean
 clean:
-	rm -f $(OUTDIR)/*.o
-	rm -f $(OUTPUT_NAME)
+	cd src; $(MAKE) clean
 	cd sample; $(MAKE) clean
 	cd tests; $(MAKE) clean
+
+.PHONY: lib
+lib:
+	cd src; $(MAKE)
 
 .PHONY: sample
 sample:

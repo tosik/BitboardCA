@@ -21,13 +21,12 @@
 CC	= g++
 INCDIR	= ../include
 CFLAGS	= -O2 -Wall -I$(INCDIR)
-LDFLAGS	= -L/usr/local/lib
-LIBS	= ../library/libbbca.a
+LDFLAGS	= -L../library/ -lbbca -lcppunit -ldl
 
 all: TestBitboardCA
 
 TestBitboardCA: $(SRC) $(HDR) TestBitboardCA.cpp
-	$(CC) $(CFLAGS) -o TestBitboardCA TestBitboardCA.cpp $(SRC) $(LIBS) $(LDFLAGS) -lcppunit -ldl
+	$(CC) $(CFLAGS) -o TestBitboardCA TestBitboardCA.cpp $(SRC) $(LDFLAGS)
 
 clean:
 	rm -f TestBitboardCA
