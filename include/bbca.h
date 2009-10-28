@@ -43,7 +43,10 @@ namespace BitboardCA
 			void step();
 
 			/** Update Bitboard by Outer Totalistic */
-			Bitboard stepByOuterTotalistic(Bitboard&, Bitboard&, Bitboard&, Bitboard&, Bitboard&, Bitboard&, Bitboard&, Bitboard&, Bitboard&);
+			Bitboard stepByOuterTotalistic(Bitboard board,
+					Bitboard board_a, Bitboard board_b, Bitboard board_c,
+					Bitboard board_d,                   Bitboard board_e,
+					Bitboard board_f, Bitboard board_g, Bitboard board_h);
 
 			/** view simply board to console */
 			void view();
@@ -72,11 +75,11 @@ namespace BitboardCA
 			//                 Bitboard s4, Bitboard s5, Bitboard s6, Bitboard s7, Bitboard s8 )
 			//   {
 			//     // Conway's game of life
-			//     return ( ~board & s3 ) | ( board & ( s2 | s3 ) ); 
+			//     return ( ~board & s3 ) | ( board & ( s2 | s3 ) );
 			//   }
 			//
-			virtual Bitboard rule(Bitboard board, Bitboard s0, Bitboard s1, Bitboard s2, Bitboard s3,
-					Bitboard s4, Bitboard s5, Bitboard s6, Bitboard s7, Bitboard s8 ) = 0;
+			virtual Bitboard rule(	Bitboard board, Bitboard s0, Bitboard s1, Bitboard s2, Bitboard s3,
+									Bitboard s4, Bitboard s5, Bitboard s6, Bitboard s7, Bitboard s8 ) = 0;
 
 		private:
 			/** size of board */

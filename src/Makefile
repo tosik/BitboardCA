@@ -19,27 +19,28 @@
 
 
 PROJECT_NAME	= bbca
-SRCDIR		= ./
-LIBDIR		= ../library
-INCDIR		= ../include
+SRCDIR			= ./
+LIBDIR			= ../library
+INCDIR			= ../include
 RELEASE_LIB_NAME= $(LIBDIR)/lib$(PROJECT_NAME).a
 DEBUG_LIB_NAME	= $(LIBDIR)/lib$(PROJECT_NAME)d.a
 RELEASE_OBJDIR	= $(SRCDIR)/obj_release/
 DEBUG_OBJDIR	= $(SRCDIR)/obj_debug/
-SRCS		= $(SRCDIR)/bbca.cpp
-OBJS		= $(SRCS:.cpp=.o)
+SRCS			= $(SRCDIR)/bbca.cpp
+OBJS			= $(SRCS:.cpp=.o)
 RELEASE_OBJS	= $(OBJS:%=$(RELEASE_OBJDIR)/%)
-DEBUG_OBJS	= $(OBJS:%=$(DEBUG_OBJDIR)/%)
+DEBUG_OBJS		= $(OBJS:%=$(DEBUG_OBJDIR)/%)
 
-CC	= g++
+CC		= g++
 CFLAGS	= -O2 -Wall -I$(INCDIR)
 LDFLAGS	= 
-AR	= ar
+AR		= ar
 ARFLAGS	= cru
 MAKE	= make
 
 DEBUG_CFLAGS	= $(CFLAGS)
 RELEASE_CFLAGS	= $(CFLAGS) -g
+
 
 all:	$(RELEASE_LIB_NAME) $(DEBUG_LIB_NAME)
 

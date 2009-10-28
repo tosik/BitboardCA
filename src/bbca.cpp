@@ -49,8 +49,9 @@ void CA::step()
 		for(int x=1; x<board_size_x-1; x++)
 		{
 			boards2[x+y*board_size_x] = stepByOuterTotalistic(
-					boards[(x  )+(y  )*board_size_x], boards[(x-1)+(y-1)*board_size_x], boards[(x  )+(y-1)*board_size_x],
-					boards[(x+1)+(y-1)*board_size_x], boards[(x-1)+(y  )*board_size_x], boards[(x+1)+(y  )*board_size_x],
+					boards[(x  )+(y  )*board_size_x],
+					boards[(x-1)+(y-1)*board_size_x], boards[(x  )+(y-1)*board_size_x], boards[(x+1)+(y-1)*board_size_x],
+					boards[(x-1)+(y  )*board_size_x],                                   boards[(x+1)+(y  )*board_size_x],
 					boards[(x-1)+(y+1)*board_size_x], boards[(x  )+(y+1)*board_size_x], boards[(x+1)+(y+1)*board_size_x]
 			);
 		}
@@ -90,8 +91,10 @@ void CA::step()
 }
 
 // explanation in japanese http://d.hatena.ne.jp/tosik/20071115/1195120024
-Bitboard CA::stepByOuterTotalistic(Bitboard &board, Bitboard &board_a, Bitboard &board_b, Bitboard &board_c,
-		Bitboard &board_d, Bitboard &board_e, Bitboard &board_f, Bitboard &board_g, Bitboard &board_h)
+Bitboard CA::stepByOuterTotalistic(Bitboard board,
+		Bitboard board_a, Bitboard board_b, Bitboard board_c,
+		Bitboard board_d,                   Bitboard board_e,
+		Bitboard board_f, Bitboard board_g, Bitboard board_h)
 {
 
 	Bitboard s0, s1, s2, s3, s4, s5, s6, s7, s8;
