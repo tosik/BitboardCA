@@ -29,7 +29,7 @@
 #include <cppunit/TestCaller.h>
 #include <cppunit/TestCase.h>
 
-#include "bbca.h"
+#include <bbca.h>
 
 namespace BCA = BitboardCA;
 
