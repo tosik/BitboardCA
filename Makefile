@@ -39,5 +39,9 @@ sample:
 
 .PHONY: test
 test:
-	cd tests; $(MAKE) all run
+	cd tests; $(MAKE)
+
+.PHONY: runtest
+runtest:
+	cd tests; $(MAKE) run
 
