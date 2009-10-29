@@ -24,6 +24,7 @@
 #include <cstddef>
 #include <cstdlib>
 #include <ctime>
+#include <algorithm>
 
 using namespace BitboardCA;
 
@@ -92,6 +93,7 @@ void CA::Step()
 		new_bitboard_list[i + m_BitboardSizeX * (m_BitboardSizeY - 2)] = new_bitboard_list[i + m_BitboardSizeX * (m_BitboardSizeY - 2)] & MASK_Y[m_SizeY % 8];
 	}
 
+	// copy back
 	m_BitboardList = new_bitboard_list;
 }
 
