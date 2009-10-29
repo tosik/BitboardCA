@@ -45,3 +45,7 @@ clean:
 	rm -f $(OUTDIR)/*.o
 	rm -f $(OUTPUT_NAME)
 
+.PHONY: run
+run:
+	./$(OUTPUT_NAME)
+
