@@ -32,70 +32,78 @@ namespace BitboardCA
 	/** Cellular Automata class */
 	class CA
 	{
+		private:
+			/** size of board */
+			std::size_t m_SizeX, m_SizeY;
+
+			/** number of bitboard */
+			std::size_t m_BitboardSizeX, m_BitboardSizeY;
+
+			/** bitboard array */
+			std::vector<Bitboard> m_BitboardList;
+
+
 		public:
 			/** constructor */
-			CA(int size_x, int size_y);
+			CA(std::size_t size_x, std::size_t size_y);
 
 			/** destructor */
 			virtual ~CA();
 
 			/** step one */
-			void step();
+			void Step();
 
 			/** Update Bitboard by Outer Totalistic */
-			Bitboard stepByOuterTotalistic(Bitboard board,
+			Bitboard StepByOuterTotalistic(Bitboard board,
 					Bitboard board_a, Bitboard board_b, Bitboard board_c,
 					Bitboard board_d,                   Bitboard board_e,
 					Bitboard board_f, Bitboard board_g, Bitboard board_h);
 
 			/** view simply board to console */
-			void view();
+			void View();
 
 			/** get board size of x */
-			int getSizeX();
+			std::size_t GetSizeX();
 
 			/** get board size of y */
-			int getSizeY();
+			std::size_t GetSizeY();
 
 			/** randomize board */
-			void randomize();
+			void Randomize();
 
 			/** all cells die */
-			void clear();
+			void Clear();
 
 			/** get a state of cell */
-			bool getCellState(int x, int y);
-			void setCellState(bool cell, int x, int y);
+			bool GetCellState(std::size_t x, std::size_t y);
+			void SetCellState(bool cell, std::size_t x, std::size_t y);
 
 		protected:
 			// you should code automata rule you like.
 			// like this:
 			//
-			//   Bitboard rule(Bitboard board, Bitboard s0, Bitboard s1, Bitboard s2, Bitboard s3,
+			//   Bitboard Rule(Bitboard board, Bitboard s0, Bitboard s1, Bitboard s2, Bitboard s3,
 			//                 Bitboard s4, Bitboard s5, Bitboard s6, Bitboard s7, Bitboard s8 )
 			//   {
 			//     // Conway's game of life
 			//     return ( ~board & s3 ) | ( board & ( s2 | s3 ) );
 			//   }
 			//
-			virtual Bitboard rule(	Bitboard board, Bitboard s0, Bitboard s1, Bitboard s2, Bitboard s3,
+			virtual Bitboard Rule(	Bitboard board, Bitboard s0, Bitboard s1, Bitboard s2, Bitboard s3,
 									Bitboard s4, Bitboard s5, Bitboard s6, Bitboard s7, Bitboard s8 ) = 0;
 
 		private:
-			/** size of board */
-			int size_x, size_y;
-
-			/** number of bitboard */
-			int board_size_x, board_size_y;
-
-			/** bitboard array */
-			std::vector<Bitboard> boards;
-
 			/** get bitboard from board array */
-			Bitboard getBoard(int x, int y);
+			Bitboard GetBoard(std::size_t x, std::size_t y);
 
 			/** view bitboard */
-			void viewBitboard(Bitboard b);
+			void ViewBitboard(Bitboard b);
+
+			/** get shift size used when set/get cells */
+			inline std::size_t GetBitboardShiftSize(std::size_t x, std::size_t y);
+
+			/** get biboard index used when set/get cells */
+			inline std::size_t GetBitboardIndex(std::size_t x, std::size_t y);
 
 	};
 

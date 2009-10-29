@@ -27,6 +27,7 @@ DEBUG_LIB_NAME	= $(LIBDIR)/lib$(PROJECT_NAME)d.a
 RELEASE_OBJDIR	= $(SRCDIR)/obj_release/
 DEBUG_OBJDIR	= $(SRCDIR)/obj_debug/
 SRCS			= $(SRCDIR)/bbca.cpp
+HDRS			= $(INCDIR)/bbca.h
 OBJS			= $(SRCS:.cpp=.o)
 RELEASE_OBJS	= $(OBJS:%=$(RELEASE_OBJDIR)/%)
 DEBUG_OBJS		= $(OBJS:%=$(DEBUG_OBJDIR)/%)
@@ -56,17 +57,18 @@ $(DEBUG_LIB_NAME): $(DEBUG_OBJS)
 	fi
 	$(AR) $(ARFLAGS) $(DEBUG_LIB_NAME) $(DEBUG_OBJS)
 
-$(RELEASE_OBJS): $(SRCS)
+$(RELEASE_OBJS): $(SRCS) $(HDRS)
 	@if [ ! -d $(RELEASE_OBJDIR) ]; then \
 		mkdir $(RELEASE_OBJDIR); \
 	fi
 	$(CC) $(RELEASE_CFLAGS) -o $@ -c $<
 
-$(DEBUG_OBJS): $(SRCS)
+$(DEBUG_OBJS): $(SRCS) $(HDRS)
 	@if [ ! -d $(DEBUG_OBJDIR) ]; then \
 		mkdir $(DEBUG_OBJDIR); \
 	fi
 	$(CC) $(DEBUG_CFLAGS) -o $@ -c $<
+
 
 .PHONY: clean
 clean:

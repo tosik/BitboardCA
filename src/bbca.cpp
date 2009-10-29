@@ -21,43 +21,49 @@
 
 #include "bbca.h"
 
+#include <cstddef>
 #include <cstdlib>
 #include <ctime>
 
 using namespace BitboardCA;
 
-CA::CA(int size_x, int size_y)
+CA::CA(std::size_t size_x, std::size_t size_y)
 {
-	this->size_x = size_x;
-	this->size_y = size_y;
-	this->board_size_x = (size_x-1)/8+3;
-	this->board_size_y = (size_y-1)/8+3;
-	boards.resize(board_size_x * board_size_y, 0ULL);
+	m_SizeX = size_x;
+	m_SizeY = size_y;
+	m_BitboardSizeX = (size_x-1)/8+3;
+	m_BitboardSizeY = (size_y-1)/8+3;
+	m_BitboardList.resize(m_BitboardSizeX * m_BitboardSizeY, 0ULL);
 }
 
 CA::~CA()
 {
 }
 
-void CA::step()
+void CA::Step()
 {
-	std::vector<Bitboard> boards2(boards.size());
+	std::vector<Bitboard> new_bitboard_list(m_BitboardList.size());
 
 	// calc outer totalistic each bitboards
-	for(int y=1; y<board_size_y-1; y++)
-		for(int x=1; x<board_size_x-1; x++)
+	for ( std::size_t y = 1 ; y < m_BitboardSizeY - 1 ; y++ )
+		for ( std::size_t x = 1 ; x < m_BitboardSizeX - 1 ; x++ )
 		{
-			boards2[x+y*board_size_x] = stepByOuterTotalistic(
-					boards[(x  )+(y  )*board_size_x],
-					boards[(x-1)+(y-1)*board_size_x], boards[(x  )+(y-1)*board_size_x], boards[(x+1)+(y-1)*board_size_x],
-					boards[(x-1)+(y  )*board_size_x],                                   boards[(x+1)+(y  )*board_size_x],
-					boards[(x-1)+(y+1)*board_size_x], boards[(x  )+(y+1)*board_size_x], boards[(x+1)+(y+1)*board_size_x]
+			new_bitboard_list[x + y * m_BitboardSizeX] = StepByOuterTotalistic(
+					m_BitboardList[(x  ) + (y  ) * m_BitboardSizeX],
+					m_BitboardList[(x-1) + (y-1) * m_BitboardSizeX],
+					m_BitboardList[(x  ) + (y-1) * m_BitboardSizeX],
+					m_BitboardList[(x+1) + (y-1) * m_BitboardSizeX],
+					m_BitboardList[(x-1) + (y  ) * m_BitboardSizeX],
+					m_BitboardList[(x+1) + (y  ) * m_BitboardSizeX],
+					m_BitboardList[(x-1) + (y+1) * m_BitboardSizeX],
+					m_BitboardList[(x  ) + (y+1) * m_BitboardSizeX],
+					m_BitboardList[(x+1) + (y+1) * m_BitboardSizeX]
 			);
 		}
 
 	// mask for usable a expect multiple of 8
 	// mask X
-	static Bitboard mask_x[8] = {
+	const static Bitboard MASK_X[8] = {
 		0xffffffffffffffffULL,
 		0x8080808080808080ULL,
 		0xc0c0c0c0c0c0c0c0ULL,
@@ -67,11 +73,11 @@ void CA::step()
 		0xfcfcfcfcfcfcfcfcULL,
 		0xfefefefefefefefeULL
 	};
-	for(int i=1; i<board_size_y; i++)
-		boards2[i * board_size_x - 2] = boards2[i * board_size_x - 2] & mask_x[size_x % 8];
+	for(std::size_t i=1; i<m_BitboardSizeY; i++)
+		new_bitboard_list[i * m_BitboardSizeX - 2] = new_bitboard_list[i * m_BitboardSizeX - 2] & MASK_X[m_SizeX % 8];
 
 	// mask Y
-	static Bitboard mask_y[8] = {
+	const static Bitboard MASK_Y[8] = {
 		0xffffffffffffffffULL,
 		0xff00000000000000ULL,
 		0xffff000000000000ULL,
@@ -81,16 +87,16 @@ void CA::step()
 		0xffffffffffff0000ULL,
 		0xffffffffffffff00ULL
 	};
-	for(int i=1; i<board_size_x; i++)
+	for(std::size_t i=1; i<m_BitboardSizeX; i++)
 	{
-		boards2[i + board_size_x * (board_size_y - 2)] = boards2[i + board_size_x * (board_size_y - 2)] & mask_y[size_y % 8];
+		new_bitboard_list[i + m_BitboardSizeX * (m_BitboardSizeY - 2)] = new_bitboard_list[i + m_BitboardSizeX * (m_BitboardSizeY - 2)] & MASK_Y[m_SizeY % 8];
 	}
 
-	boards = boards2;
+	m_BitboardList = new_bitboard_list;
 }
 
 // explanation in japanese http://d.hatena.ne.jp/tosik/20071115/1195120024
-Bitboard CA::stepByOuterTotalistic(Bitboard board,
+Bitboard CA::StepByOuterTotalistic(Bitboard board,
 		Bitboard board_a, Bitboard board_b, Bitboard board_c,
 		Bitboard board_d,                   Bitboard board_e,
 		Bitboard board_f, Bitboard board_g, Bitboard board_h)
@@ -167,32 +173,32 @@ Bitboard CA::stepByOuterTotalistic(Bitboard board,
 	s0 = s0 & ~h;
 
 	// calc optional rule using sums
-	return rule(board,s0,s1,s2,s3,s4,s5,s6,s7,s8);
+	return Rule(board, s0, s1, s2, s3, s4, s5, s6, s7, s8);
 }
 
-inline Bitboard CA::rule(Bitboard board, Bitboard s0, Bitboard s1, Bitboard s2,
+inline Bitboard CA::Rule(Bitboard board, Bitboard s0, Bitboard s1, Bitboard s2,
 		Bitboard s3, Bitboard s4, Bitboard s5, Bitboard s6, Bitboard s7, Bitboard s8 )
 {
 	return ( ~board & s3 ) | ( board & ( s2 | s3 ) );
 }
 
-void CA::view()
+void CA::View()
 {
 	std::cout << std::endl;
-	for(int y=0; y<size_y; y++)
+	for ( std::size_t y = 0 ; y < m_SizeY ; y++ )
 	{
-		for(int x=0; x<size_x; x++)
-			std::cout << (getCellState(x,y) ? "* " : "  ");
+		for ( std::size_t x = 0 ; x < m_SizeX ; x++ )
+			std::cout << (GetCellState(x, y) ? "* " : "  ");
 		std::cout << std::endl;
 	}
-	for (int x=0; x<size_x*2; x++)
+	for ( std::size_t x = 0 ; x < m_SizeX * 2 ; x++ )
 		std::cout << "-";
 	std::cout << std::endl;
 }
 
-void CA::viewBitboard(Bitboard b)
+void CA::ViewBitboard(Bitboard b)
 {
-	for(int i=0; i<64; i++)
+	for ( std::size_t i = 0 ; i < 64 ; i++ )
 	{
 		if ( b % 2 == 1 )
 			std::cout << "* ";
@@ -205,28 +211,28 @@ void CA::viewBitboard(Bitboard b)
 	std::cout << "----------------" << std::endl;
 }
 
-inline Bitboard CA::getBoard(int x, int y)
+inline Bitboard CA::GetBoard(std::size_t x, std::size_t y)
 {
-	return boards[x+y*8];
+	return m_BitboardList[x + y * 8];
 }
 
-int CA::getSizeX()
+std::size_t CA::GetSizeX()
 {
-	return size_x;
+	return m_SizeX;
 }
 
-int CA::getSizeY()
+std::size_t CA::GetSizeY()
 {
-	return size_y;
+	return m_SizeY;
 }
 
-void CA::randomize()
+void CA::Randomize()
 {
 	srand((unsigned)time(NULL));
-	for(int y=0; y<size_y+2; y++)
-		for(int x=0; x<size_x+2; x++)
+	for ( std::size_t y = 0 ; y < m_SizeY + 2 ; y++ )
+		for ( std::size_t x = 0 ; x < m_SizeX + 2 ; x++ )
 			// generate random number of 64 bit
-			boards[x+y*board_size_x] =
+			m_BitboardList[x + y * m_BitboardSizeX] =
 				rand() +
 				rand() * 0x0000000000010000ULL +
 				rand() * 0x0000001000000000ULL +
@@ -234,26 +240,41 @@ void CA::randomize()
 				( rand() % 0xf ) * 0x1000000000000000ULL;
 }
 
-void CA::clear()
+void CA::Clear()
 {
 	// clear boards array by zero
-	for ( std::size_t i = 0 ; i < boards.size() ; i ++ )
+	for ( std::size_t i = 0 ; i < m_BitboardList.size() ; i ++ )
 	{
-		boards[i] = 0ULL;
+		m_BitboardList[i] = 0ULL;
 	}
 }
 
-bool CA::getCellState(int x, int y)
+inline std::size_t CA::GetBitboardIndex(std::size_t x, std::size_t y)
 {
-	return (((boards[x/8+y/8*board_size_x+1+board_size_x] >> (7-x%8)+(7-y%8)*8) % 2 == 1) ? true : false );
+	return x / 8 + y / 8 * m_BitboardSizeX + 1 + m_BitboardSizeX;
+}
+inline std::size_t CA::GetBitboardShiftSize(std::size_t x, std::size_t y)
+{
+	return ( 7 - x % 8 ) + ( 7 - y % 8 ) * 8;
 }
 
-void CA::setCellState(bool cell, int x, int y)
+bool CA::GetCellState(std::size_t x, std::size_t y)
 {
+	std::size_t bitboard_index = GetBitboardIndex(x, y);
+	std::size_t shift_size = GetBitboardShiftSize(x, y);
+
+	return ( ( m_BitboardList[bitboard_index] >> ( shift_size ) ) % 2 == 1 );
+}
+
+void CA::SetCellState(bool cell, std::size_t x, std::size_t y)
+{
+	std::size_t bitboard_index = GetBitboardIndex(x, y);
+	std::size_t shift_size = GetBitboardShiftSize(x, y);
+
 	if ( cell )
-		boards[x/8+y/8*board_size_x+1+board_size_x] |= ( (Bitboard)1 << (7-x%8)+(7-y%8)*8 );
+		m_BitboardList[bitboard_index] |= ( (Bitboard)1 << shift_size );
 	else
-		boards[x/8+y/8*board_size_x+1+board_size_x] &= 0xffffffffffffffffULL^( (Bitboard)1 << (7-x%8)+(7-y%8)*8 );
+		m_BitboardList[bitboard_index] &= (Bitboard)0xffffffffffffffffULL ^ ( (Bitboard)1 << shift_size );
 }
 
 

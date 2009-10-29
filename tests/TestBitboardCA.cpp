@@ -37,13 +37,13 @@ class ConwaysLifeOfGameCA
 	: public BCA::CA
 {
 	public:
-		ConwaysLifeOfGameCA(int size_x, int size_y)
+		ConwaysLifeOfGameCA(std::size_t size_x, std::size_t size_y)
 			: CA(size_x, size_y)
 		{
 		};
 
 	protected:
-		BCA::Bitboard rule(
+		BCA::Bitboard Rule(
 			BCA::Bitboard board,
 			BCA::Bitboard s0, BCA::Bitboard s1, BCA::Bitboard s2,
 			BCA::Bitboard s3, BCA::Bitboard s4, BCA::Bitboard s5,
@@ -96,41 +96,41 @@ class TestBitboardCA
 			int size_x = 25;
 			int size_y = 29;
 			ConwaysLifeOfGameCA ca(size_x, size_y);
-			ca.clear();
+			ca.Clear();
 			for ( int i = 0 ; i < size_x ; i ++ )
 				for ( int j = 0 ; j < size_y ; j ++ )
-					CPPUNIT_ASSERT_EQUAL(ca.getCellState(i, j), false);
+					CPPUNIT_ASSERT_EQUAL(ca.GetCellState(i, j), false);
 		}
 
 		void testChangeCell()
 		{
 			ConwaysLifeOfGameCA ca(17, 15);
-			ca.clear();
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(0, 0), false);
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(0, 1), false);
+			ca.Clear();
+			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 0), false);
+			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 1), false);
 
-			ca.setCellState(true, 0, 0);
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(0, 0), true);
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(0, 1), false);
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(1, 0), false);
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(1, 1), false);
+			ca.SetCellState(true, 0, 0);
+			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 0), true);
+			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 1), false);
+			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(1, 0), false);
+			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(1, 1), false);
 
-			ca.clear();
-			ca.setCellState(true, 1, 2);
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(1, 2), true);
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(2, 1), false);
+			ca.Clear();
+			ca.SetCellState(true, 1, 2);
+			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(1, 2), true);
+			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(2, 1), false);
 
-			ca.clear();
-			ca.setCellState(true, -1, 0);
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(-1, 0), true);
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(0, 0), false);
+			ca.Clear();
+			ca.SetCellState(true, -1, 0);
+			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(-1, 0), true);
+			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 0), false);
 
-			ca.clear();
-			ca.setCellState(true, 3, 2);
-			ca.setCellState(true, 4, 2);
-			ca.setCellState(false, 3, 2);
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(3, 2), false);
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(4, 2), true);
+			ca.Clear();
+			ca.SetCellState(true, 3, 2);
+			ca.SetCellState(true, 4, 2);
+			ca.SetCellState(false, 3, 2);
+			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(3, 2), false);
+			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(4, 2), true);
 		}
 
 		void testSmallSizeCA()
@@ -139,15 +139,15 @@ class TestBitboardCA
 			int size_y = 8;
 			ConwaysLifeOfGameCA ca(size_x, size_y);
 
-			ca.clear();
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(0, 0), false);
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(0, 1), false);
+			ca.Clear();
+			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 0), false);
+			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 1), false);
 		}
 
 		void testSmallSizeMemberCA()
 		{
-			m_small_ca.clear();
-			CPPUNIT_ASSERT_EQUAL(m_small_ca.getCellState(0, 0), false);
+			m_small_ca.Clear();
+			CPPUNIT_ASSERT_EQUAL(m_small_ca.GetCellState(0, 0), false);
 		}
 
 		void testBlock()
@@ -155,24 +155,24 @@ class TestBitboardCA
 			ConwaysLifeOfGameCA ca(5, 5);
 
 			// blinker
-			ca.clear();
-			ca.setCellState(true, 1, 1);
-			ca.setCellState(true, 1, 2);
-			ca.setCellState(true, 2, 1);
-			ca.setCellState(true, 2, 2);
+			ca.Clear();
+			ca.SetCellState(true, 1, 1);
+			ca.SetCellState(true, 1, 2);
+			ca.SetCellState(true, 2, 1);
+			ca.SetCellState(true, 2, 2);
 			for ( int count = 0 ; count < 100 ; count ++ )
 			{
-				ca.step();
+				ca.Step();
 
-				CPPUNIT_ASSERT_EQUAL(ca.getCellState(1, 1), true);
-				CPPUNIT_ASSERT_EQUAL(ca.getCellState(1, 2), true);
-				CPPUNIT_ASSERT_EQUAL(ca.getCellState(2, 1), true);
-				CPPUNIT_ASSERT_EQUAL(ca.getCellState(2, 2), true);
+				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(1, 1), true);
+				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(1, 2), true);
+				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(2, 1), true);
+				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(2, 2), true);
 
-				CPPUNIT_ASSERT_EQUAL(ca.getCellState(0, 0), false);
-				CPPUNIT_ASSERT_EQUAL(ca.getCellState(0, 2), false);
-				CPPUNIT_ASSERT_EQUAL(ca.getCellState(0, 1), false);
-				CPPUNIT_ASSERT_EQUAL(ca.getCellState(0, 2), false);
+				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 0), false);
+				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 2), false);
+				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 1), false);
+				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 2), false);
 			}
 		}
 
@@ -181,18 +181,18 @@ class TestBitboardCA
 			ConwaysLifeOfGameCA ca(5, 5);
 
 			// blinker
-			ca.clear();
-			ca.setCellState(true, 1, 0);
-			ca.setCellState(true, 1, 1);
-			ca.setCellState(true, 1, 2);
+			ca.Clear();
+			ca.SetCellState(true, 1, 0);
+			ca.SetCellState(true, 1, 1);
+			ca.SetCellState(true, 1, 2);
 			for ( int count = 0 ; count < 100 ; count ++ )
 			{
-				ca.step();
-				CPPUNIT_ASSERT_EQUAL(ca.getCellState(1, 0), (count % 2) == 1);
-				CPPUNIT_ASSERT_EQUAL(ca.getCellState(1, 1), true);
-				CPPUNIT_ASSERT_EQUAL(ca.getCellState(1, 2), (count % 2) == 1);
-				CPPUNIT_ASSERT_EQUAL(ca.getCellState(2, 1), (count % 2) != 1);
-				CPPUNIT_ASSERT_EQUAL(ca.getCellState(0, 1), (count % 2) != 1);
+				ca.Step();
+				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(1, 0), (count % 2) == 1);
+				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(1, 1), true);
+				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(1, 2), (count % 2) == 1);
+				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(2, 1), (count % 2) != 1);
+				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 1), (count % 2) != 1);
 			}
 		}
 
@@ -207,40 +207,40 @@ class TestBitboardCA
 			testGlider(102, 102);
 		}
 
-		void testGlider(int X, int Y)
+		void testGlider(std::size_t X, std::size_t Y)
 		{
 			ConwaysLifeOfGameCA ca(X, Y);
-			CPPUNIT_ASSERT_EQUAL(ca.getSizeX(), X);
-			CPPUNIT_ASSERT_EQUAL(ca.getSizeY(), Y);
+			CPPUNIT_ASSERT_EQUAL(ca.GetSizeX(), X);
+			CPPUNIT_ASSERT_EQUAL(ca.GetSizeY(), Y);
 
-			ca.setCellState(true, X-1, Y-1);
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(X-1, Y-1), true);
+			ca.SetCellState(true, X-1, Y-1);
+			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(X-1, Y-1), true);
 
 			// Glider
-			ca.clear();
-			ca.setCellState(true, X/2 + 1, Y/2 + 0);
-			ca.setCellState(true, X/2 + 0, Y/2 + 1);
-			ca.setCellState(true, X/2 + 0, Y/2 + 2);
-			ca.setCellState(true, X/2 + 1, Y/2 + 2);
-			ca.setCellState(true, X/2 + 2, Y/2 + 2);
+			ca.Clear();
+			ca.SetCellState(true, X/2 + 1, Y/2 + 0);
+			ca.SetCellState(true, X/2 + 0, Y/2 + 1);
+			ca.SetCellState(true, X/2 + 0, Y/2 + 2);
+			ca.SetCellState(true, X/2 + 1, Y/2 + 2);
+			ca.SetCellState(true, X/2 + 2, Y/2 + 2);
 
-			for ( int i = 1 ; i < X/2-2 ; i ++ )
+			for ( std::size_t i = 1 ; i < X/2-2 ; i ++ )
 			{
-				ca.step();
-				ca.step();
-				ca.step();
-				ca.step();
+				ca.Step();
+				ca.Step();
+				ca.Step();
+				ca.Step();
 
-				CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - i + 1, Y/2 + i + 0), true);
-				CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - i + 0, Y/2 + i + 1), true);
-				CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - i + 0, Y/2 + i + 2), true);
-				CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - i + 1, Y/2 + i + 2), true);
-				CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - i + 2, Y/2 + i + 2), true);
+				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(X/2 - i + 1, Y/2 + i + 0), true);
+				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(X/2 - i + 0, Y/2 + i + 1), true);
+				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(X/2 - i + 0, Y/2 + i + 2), true);
+				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(X/2 - i + 1, Y/2 + i + 2), true);
+				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(X/2 - i + 2, Y/2 + i + 2), true);
 
-				CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - i + 0, Y/2 + i + 0), false);
-				CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - i + 2, Y/2 + i + 0), false);
-				CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - i + 1, Y/2 + i + 1), false);
-				CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - i + 2, Y/2 + i + 1), false);
+				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(X/2 - i + 0, Y/2 + i + 0), false);
+				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(X/2 - i + 2, Y/2 + i + 0), false);
+				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(X/2 - i + 1, Y/2 + i + 1), false);
+				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(X/2 - i + 2, Y/2 + i + 1), false);
 			}
 		}
 
@@ -248,29 +248,29 @@ class TestBitboardCA
 		{
 			{
 				ConwaysLifeOfGameCA ca(1, 2);
-				CPPUNIT_ASSERT_EQUAL(ca.getSizeX(), 1);
-				CPPUNIT_ASSERT_EQUAL(ca.getSizeY(), 2);
+				CPPUNIT_ASSERT_EQUAL(ca.GetSizeX(), (size_t)1);
+				CPPUNIT_ASSERT_EQUAL(ca.GetSizeY(), (size_t)2);
 			}
 			{
 				ConwaysLifeOfGameCA ca(4, 7);
-				CPPUNIT_ASSERT_EQUAL(ca.getSizeX(), 4);
-				CPPUNIT_ASSERT_EQUAL(ca.getSizeY(), 7);
+				CPPUNIT_ASSERT_EQUAL(ca.GetSizeX(), (size_t)4);
+				CPPUNIT_ASSERT_EQUAL(ca.GetSizeY(), (size_t)7);
 			}
 			{
 				ConwaysLifeOfGameCA ca(143, 102);
-				CPPUNIT_ASSERT_EQUAL(ca.getSizeX(), 143);
-				CPPUNIT_ASSERT_EQUAL(ca.getSizeY(), 102);
+				CPPUNIT_ASSERT_EQUAL(ca.GetSizeX(), (size_t)143);
+				CPPUNIT_ASSERT_EQUAL(ca.GetSizeY(), (size_t)102);
 			}
 		}
 
 		void testCanCreateSmallestCA()
 		{
 			ConwaysLifeOfGameCA ca(1, 1);
-			CPPUNIT_ASSERT_EQUAL(ca.getSizeX(), 1);
-			CPPUNIT_ASSERT_EQUAL(ca.getSizeY(), 1);
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(0, 0), false);
-			ca.setCellState(true, 0, 0);
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(0, 0), true);
+			CPPUNIT_ASSERT_EQUAL(ca.GetSizeX(), (size_t)1);
+			CPPUNIT_ASSERT_EQUAL(ca.GetSizeY(), (size_t)1);
+			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 0), false);
+			ca.SetCellState(true, 0, 0);
+			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 0), true);
 		}
 
 };
