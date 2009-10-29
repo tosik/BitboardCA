@@ -44,29 +44,43 @@ class ConwaysLifeOfGameCA
 
 	protected:
 		BCA::Bitboard rule(
-				BCA::Bitboard board,
-				BCA::Bitboard s0, BCA::Bitboard s1, BCA::Bitboard s2,
-				BCA::Bitboard s3, BCA::Bitboard s4, BCA::Bitboard s5,
-				BCA::Bitboard s6, BCA::Bitboard s7, BCA::Bitboard s8 )
+			BCA::Bitboard board,
+			BCA::Bitboard s0, BCA::Bitboard s1, BCA::Bitboard s2,
+			BCA::Bitboard s3, BCA::Bitboard s4, BCA::Bitboard s5,
+			BCA::Bitboard s6, BCA::Bitboard s7, BCA::Bitboard s8 )
 		{
 			return ( ~board & s3 ) | ( board & ( s2 | s3 ) );
 		};
 };
 
 class TestBitboardCA
-	: public CppUnit::TestCase
+	: public CppUnit::TestFixture
 {
-	public:
-
 		ConwaysLifeOfGameCA m_small_ca;
 
+	public:
 		explicit TestBitboardCA()
-			: CppUnit::TestCase()
+			: CppUnit::TestFixture()
 			, m_small_ca(8,8)
 		{
 		}
 
+	private:
+		CPPUNIT_TEST_SUITE(TestBitboardCA);
+		CPPUNIT_TEST(testClear);
+		CPPUNIT_TEST(testChangeCell);
+		CPPUNIT_TEST(testSmallSizeCA);
+		CPPUNIT_TEST(testSmallSizeMemberCA);
+		CPPUNIT_TEST(testBlock);
+		CPPUNIT_TEST(testBlinker);
+		CPPUNIT_TEST(testGlider);
+		CPPUNIT_TEST(testGetSize);
+		CPPUNIT_TEST(testCanCreateSmallestCA);
+		CPPUNIT_TEST(testCanCreateTooBigCA);
+		CPPUNIT_TEST_SUITE_END();
 
+
+	public:
 		virtual void setUp()
 		{
 		}
@@ -74,6 +88,7 @@ class TestBitboardCA
 		{
 		}
 
+	protected:
 		void testClear()
 		{
 			int size_x = 25;
@@ -257,23 +272,9 @@ class TestBitboardCA
 			CPPUNIT_ASSERT_EQUAL(ca.getCellState(0, 0), true);
 		}
 
-		static CppUnit::Test * suite()
-		{
-			CppUnit::TestSuite * suite = new CppUnit::TestSuite("TestBitboardCA");
-			suite->addTest(new CppUnit::TestCaller<TestBitboardCA>("testClear", &TestBitboardCA::testClear));
-			suite->addTest(new CppUnit::TestCaller<TestBitboardCA>("testChangeCell", &TestBitboardCA::testChangeCell));
-			suite->addTest(new CppUnit::TestCaller<TestBitboardCA>("testSmallSizeCA", &TestBitboardCA::testSmallSizeCA));
-			suite->addTest(new CppUnit::TestCaller<TestBitboardCA>("testSmallSizeMemberCA", &TestBitboardCA::testSmallSizeMemberCA));
-			suite->addTest(new CppUnit::TestCaller<TestBitboardCA>("testBlock", &TestBitboardCA::testBlock));
-			suite->addTest(new CppUnit::TestCaller<TestBitboardCA>("testBlinker", &TestBitboardCA::testBlinker));
-			suite->addTest(new CppUnit::TestCaller<TestBitboardCA>("testGlider", &TestBitboardCA::testGlider));
-			suite->addTest(new CppUnit::TestCaller<TestBitboardCA>("testGetSize", &TestBitboardCA::testGetSize));
-			suite->addTest(new CppUnit::TestCaller<TestBitboardCA>("testCanCreateSmallestCA", &TestBitboardCA::testCanCreateSmallestCA));
-			suite->addTest(new CppUnit::TestCaller<TestBitboardCA>("testCanCreateTooBigCA", &TestBitboardCA::testCanCreateTooBigCA));
-			return suite;
-		}
 };
 
+CPPUNIT_TEST_SUITE_REGISTRATION(TestBitboardCA);
 
 
 int main(int argc, char * argv[])
@@ -287,7 +288,7 @@ int main(int argc, char * argv[])
 	controller.addListener(&progress);
 
 	CppUnit::TestRunner runner;
-	runner.addTest(TestBitboardCA::suite());
+	runner.addTest(CppUnit::TestFactoryRegistry::getRegistry().makeTest());
 	runner.run(controller);
 
 
