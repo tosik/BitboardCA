@@ -30,7 +30,8 @@
 
 namespace BCA = BitboardCA;
 
-class MyCA : public BCA::CA
+class MyCA
+	: public BCA::CA
 {
 	public:
 		MyCA(std::size_t size_x, std::size_t size_y)
@@ -40,21 +41,21 @@ class MyCA : public BCA::CA
 
 	protected:
 		BCA::Bitboard Rule(
-				BCA::Bitboard board,
-				BCA::Bitboard s0, BCA::Bitboard s1, BCA::Bitboard s2,
-				BCA::Bitboard s3, BCA::Bitboard s4, BCA::Bitboard s5,
-				BCA::Bitboard s6, BCA::Bitboard s7, BCA::Bitboard s8 )
+			BCA::Bitboard board,
+			BCA::Bitboard s0, BCA::Bitboard s1, BCA::Bitboard s2,
+			BCA::Bitboard s3, BCA::Bitboard s4, BCA::Bitboard s5,
+			BCA::Bitboard s6, BCA::Bitboard s7, BCA::Bitboard s8 )
 		{
 			// making automata rule
 			return ( ~board & s3 ) | ( board & ( s2 | s3 ) ); // Conway's game of life
-//            return ( ~board & s3 ) | ( board & ( s2 | s3 | s4 ) ); // maze
-//            return ( ~board & ( s3 | s4 | s6 | s7 | s8 ) ) | ( board & ( s3 | s6 | s7 | s8 ) ); // Day & Night
+			//return ( ~board & s3 ) | ( board & ( s2 | s3 | s4 ) ); // maze
+			//return ( ~board & ( s3 | s4 | s6 | s7 | s8 ) ) | ( board & ( s3 | s6 | s7 | s8 ) ); // Day & Night
 		};
 };
 
 int main()
 {
-	const int count = 1000;
+	const int count = 300;
 	MyCA ca(16,16);
 
 	ca.Randomize();
