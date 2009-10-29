@@ -160,7 +160,6 @@ class TestBitboardCA
 			ca.setCellState(true, 1, 2);
 			ca.setCellState(true, 2, 1);
 			ca.setCellState(true, 2, 2);
-			ca.view();
 			for ( int count = 0 ; count < 100 ; count ++ )
 			{
 				ca.step();
@@ -175,7 +174,6 @@ class TestBitboardCA
 				CPPUNIT_ASSERT_EQUAL(ca.getCellState(0, 1), false);
 				CPPUNIT_ASSERT_EQUAL(ca.getCellState(0, 2), false);
 			}
-			ca.view();
 		}
 
 		void testBlinker()
@@ -187,7 +185,6 @@ class TestBitboardCA
 			ca.setCellState(true, 1, 0);
 			ca.setCellState(true, 1, 1);
 			ca.setCellState(true, 1, 2);
-			ca.view();
 			for ( int count = 0 ; count < 100 ; count ++ )
 			{
 				ca.step();
@@ -197,7 +194,6 @@ class TestBitboardCA
 				CPPUNIT_ASSERT_EQUAL(ca.getCellState(2, 1), (count % 2) != 1);
 				CPPUNIT_ASSERT_EQUAL(ca.getCellState(0, 1), (count % 2) != 1);
 			}
-			ca.view();
 		}
 
 		void testGlider()
@@ -227,22 +223,25 @@ class TestBitboardCA
 			ca.setCellState(true, X/2 + 0, Y/2 + 2);
 			ca.setCellState(true, X/2 + 1, Y/2 + 2);
 			ca.setCellState(true, X/2 + 2, Y/2 + 2);
-			ca.view();
-			ca.step();
-			ca.step();
-			ca.step();
-			ca.step();
-			ca.view();
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - 1 + 1, Y/2 + 1 + 0), true);
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - 1 + 0, Y/2 + 1 + 1), true);
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - 1 + 0, Y/2 + 1 + 2), true);
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - 1 + 1, Y/2 + 1 + 2), true);
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - 1 + 2, Y/2 + 1 + 2), true);
 
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - 1 + 0, Y/2 + 1 + 0), false);
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - 1 + 2, Y/2 + 1 + 0), false);
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - 1 + 1, Y/2 + 1 + 1), false);
-			CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - 1 + 2, Y/2 + 1 + 1), false);
+			for ( int i = 1 ; i < X/2-2 ; i ++ )
+			{
+				ca.step();
+				ca.step();
+				ca.step();
+				ca.step();
+
+				CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - i + 1, Y/2 + i + 0), true);
+				CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - i + 0, Y/2 + i + 1), true);
+				CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - i + 0, Y/2 + i + 2), true);
+				CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - i + 1, Y/2 + i + 2), true);
+				CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - i + 2, Y/2 + i + 2), true);
+
+				CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - i + 0, Y/2 + i + 0), false);
+				CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - i + 2, Y/2 + i + 0), false);
+				CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - i + 1, Y/2 + i + 1), false);
+				CPPUNIT_ASSERT_EQUAL(ca.getCellState(X/2 - i + 2, Y/2 + i + 1), false);
+			}
 		}
 
 		void testGetSize()
