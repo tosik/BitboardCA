@@ -33,13 +33,13 @@ namespace BCA = BitboardCA;
 class MyCA : public BCA::CA
 {
 	public:
-		MyCA(int size_x, int size_y)
+		MyCA(std::size_t size_x, std::size_t size_y)
 			: CA(size_x, size_y)
 		{
 		};
 
 	protected:
-		BCA::Bitboard rule(
+		BCA::Bitboard Rule(
 				BCA::Bitboard board,
 				BCA::Bitboard s0, BCA::Bitboard s1, BCA::Bitboard s2,
 				BCA::Bitboard s3, BCA::Bitboard s4, BCA::Bitboard s5,
@@ -57,18 +57,18 @@ int main()
 	const int count = 100000;
 	MyCA ca(12,8);
 
-	ca.randomize();
+	ca.Randomize();
 
 	clock_t start, end;
 	start = clock();
 	for ( int steps = 0 ; steps < count ; steps ++ )
 	{
-		ca.step();
-		ca.view();
+		ca.Step();
+		ca.View();
 	}
 	end = clock();
 	std::cout << "count = " << count << std::endl;
-	std::cout << "size = " << "(" << ca.getSizeX() << ", " << ca.getSizeY() << ")" << std::endl;
+	std::cout << "size = " << "(" << ca.GetSizeX() << ", " << ca.GetSizeY() << ")" << std::endl;
 	std::cout << "time = " << (double)(end - start)/CLOCKS_PER_SEC << std::endl;
 	std::cout << (double)(end - start)/count/CLOCKS_PER_SEC << " sec per count " << std::endl;
 
