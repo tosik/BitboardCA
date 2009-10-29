@@ -19,26 +19,36 @@
 
 
 PROJECT_NAME	= simple_sample
-SRCDIR		= .
-OUTDIR		= .
+SRCDIR		= ./
 LIBDIR		= ../library
 INCDIR		= ../include
-OUTPUT_NAME	= simple_sample
-OBJS		= $(OUTDIR)/main.o
-LIBS		= $(LIBDIR)/libbbca.a
+RELEASE_LIB_NAME= $(LIBDIR)/libbbca.a
+DEBUG_LIB_NAME	= $(LIBDIR)/libbbcad.a
+SRCS		= $(SRCDIR)/main.cpp
+HDRS		= 
+HDRS		= $(INCDIR)/bbca.h
+OBJS		= $(SRCS:.cpp=.o)
 
 CC	= g++
 CFLAGS	= -O2 -Wall -I$(INCDIR)
-LDFLAGS	= 
+LDFLAGS	= -L$(LIBDIR) -lbbca
+AR	= ar
+ARFLAGS	= cru
+MAKE	= make
+
+OUTPUT_NAME	= $(PROJECT_NAME)
+
+DEBUG_CFLAGS	= $(CFLAGS)
+RELEASE_CFLAGS	= $(CFLAGS) -g
 
 
-all:	$(OUTPUT_NAME)
+all:	$(PROJECT_NAME)
 
-$(OUTPUT_NAME): $(OBJS)
-	$(CC) $(LDFLAGS) -o $(OUTPUT_NAME) $(OBJS) $(LIBS)
+$(PROJECT_NAME): $(OBJS)
+	$(CC) -o $@ $(OBJS) $(LDFLAGS)
 
-$(OBJS): 
-	$(CC) $(CFLAGS) -o $@ -c $(SRCDIR)/$(notdir $*).cpp
+$(OBJS): $(SRCS) $(HDRS)
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 .PHONY: clean
 clean:

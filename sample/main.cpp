@@ -54,7 +54,7 @@ class MyCA : public BCA::CA
 
 int main()
 {
-	const int count = 100000;
+	const int count = 1000;
 	MyCA ca(12,8);
 
 	ca.Randomize();
