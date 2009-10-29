@@ -88,7 +88,9 @@ class TestBitboardCA
 		{
 		}
 
+
 	protected:
+
 		void testClear()
 		{
 			int size_x = 25;

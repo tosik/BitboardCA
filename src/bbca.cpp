@@ -32,8 +32,7 @@ CA::CA(int size_x, int size_y)
 	this->size_y = size_y;
 	this->board_size_x = (size_x-1)/8+3;
 	this->board_size_y = (size_y-1)/8+3;
-	boards.resize(board_size_x * board_size_y);
-
+	boards.resize(board_size_x * board_size_y, 0ULL);
 }
 
 CA::~CA()
