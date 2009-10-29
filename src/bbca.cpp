@@ -41,7 +41,7 @@ CA::~CA()
 
 void CA::step()
 {
-	static std::vector<Bitboard> boards2(boards.size());
+	std::vector<Bitboard> boards2(boards.size());
 
 	// calc outer totalistic each bitboards
 	for(int y=1; y<board_size_y-1; y++)
