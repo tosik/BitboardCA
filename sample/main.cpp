@@ -67,7 +67,10 @@ int main()
 	for ( int steps = 0 ; steps < count ; steps ++ )
 	{
 		ca.Step();
-		viewer.ViewBitboardInfo(ca.GetBitboardList(), ca.GetBitboardListSizeX(), ca.GetBitboardListSizeY());
+		ca.View();
+
+		// view detail
+		//viewer.ViewBitboardInfo(ca.GetBitboardList(), ca.GetBitboardListSizeX(), ca.GetBitboardListSizeY());
 	}
 	end = clock();
 	std::cout << "count = " << count << std::endl;
