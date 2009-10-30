@@ -34,16 +34,19 @@ CA::CA(std::size_t size_x, std::size_t size_y)
 	m_SizeY = size_y;
 	m_BitboardSizeX = (size_x-1)/8+3;
 	m_BitboardSizeY = (size_y-1)/8+3;
-	m_BitboardList.resize(m_BitboardSizeX * m_BitboardSizeY, 0ULL);
+	m_BitboardList = new Bitboard[GetBitboardSize()];
+	Clear();
 }
 
 CA::~CA()
 {
+	delete [] m_BitboardList;
 }
 
 void CA::Step()
 {
-	std::vector<Bitboard> new_bitboard_list(m_BitboardList.size());
+	Bitboard * new_bitboard_list = new Bitboard[GetBitboardSize()];
+	Clear(new_bitboard_list, GetBitboardSize());
 
 	// calc outer totalistic each bitboards
 	for ( std::size_t y = 1 ; y < m_BitboardSizeY - 1 ; y++ )
@@ -94,7 +97,8 @@ void CA::Step()
 	}
 
 	// copy back
-	m_BitboardList = new_bitboard_list;
+	for ( std::size_t i = 0 ; i < GetBitboardSize() ; i ++ )
+		m_BitboardList[i] = new_bitboard_list[i];
 }
 
 // explanation in japanese http://d.hatena.ne.jp/tosik/20071115/1195120024
@@ -198,20 +202,6 @@ void CA::View()
 	std::cout << std::endl;
 }
 
-void CA::ViewBitboard(Bitboard b)
-{
-	for ( std::size_t i = 0 ; i < 64 ; i++ )
-	{
-		if ( b % 2 == 1 )
-			std::cout << "* ";
-		else
-			std::cout << "  ";
-		if ( i % 8 == 7 )
-			std::cout << std::endl;
-		b >>= 1;
-	}
-	std::cout << "----------------" << std::endl;
-}
 
 inline Bitboard CA::GetBoard(std::size_t x, std::size_t y)
 {
@@ -244,10 +234,15 @@ void CA::Randomize()
 
 void CA::Clear()
 {
+	Clear(m_BitboardList, GetBitboardSize());
+}
+
+void CA::Clear(Bitboard * bitboards, std::size_t size)
+{
 	// clear boards array by zero
-	for ( std::size_t i = 0 ; i < m_BitboardList.size() ; i ++ )
+	for ( std::size_t i = 0 ; i < size ; i ++ )
 	{
-		m_BitboardList[i] = 0ULL;
+		bitboards[i] = 0ULL;
 	}
 }
 
@@ -279,4 +274,8 @@ void CA::SetCellState(bool cell, std::size_t x, std::size_t y)
 		m_BitboardList[bitboard_index] &= (Bitboard)0xffffffffffffffffULL ^ ( (Bitboard)1 << shift_size );
 }
 
+inline std::size_t CA::GetBitboardSize()
+{
+	return m_BitboardSizeX * m_BitboardSizeY;
+}
 

@@ -19,23 +19,22 @@
 
 
 PROJECT_NAME	= bbca
-SRCDIR			= ./
-LIBDIR			= ../library
-INCDIR			= ../include
+LIBDIR		= ../library
+INCDIR		= ../include
 RELEASE_LIB_NAME= $(LIBDIR)/lib$(PROJECT_NAME).a
 DEBUG_LIB_NAME	= $(LIBDIR)/lib$(PROJECT_NAME)d.a
-RELEASE_OBJDIR	= $(SRCDIR)/obj_release/
-DEBUG_OBJDIR	= $(SRCDIR)/obj_debug/
-SRCS			= $(SRCDIR)/bbca.cpp
-HDRS			= $(INCDIR)/bbca.h
-OBJS			= $(SRCS:.cpp=.o)
+RELEASE_OBJDIR	= obj_release/
+DEBUG_OBJDIR	= obj_debug/
+SRCS		= bbca.cpp bbviewer.cpp
+HDRS		= $(INCDIR)/bbca.h $(INCDIR)/bbviewer.h
+OBJS		= $(SRCS:.cpp=.o)
 RELEASE_OBJS	= $(OBJS:%=$(RELEASE_OBJDIR)/%)
-DEBUG_OBJS		= $(OBJS:%=$(DEBUG_OBJDIR)/%)
+DEBUG_OBJS	= $(OBJS:%=$(DEBUG_OBJDIR)/%)
 
-CC		= g++
+CC	= g++
 CFLAGS	= -O2 -Wall -I$(INCDIR)
 LDFLAGS	= 
-AR		= ar
+AR	= ar
 ARFLAGS	= cru
 MAKE	= make
 
@@ -58,12 +57,16 @@ $(DEBUG_LIB_NAME): $(DEBUG_OBJS)
 	$(AR) $(ARFLAGS) $(DEBUG_LIB_NAME) $(DEBUG_OBJS)
 
 $(RELEASE_OBJS): $(SRCS) $(HDRS)
+
+$(RELEASE_OBJDIR)/%.o: %.cpp
 	@if [ ! -d $(RELEASE_OBJDIR) ]; then \
 		mkdir $(RELEASE_OBJDIR); \
 	fi
 	$(CC) $(RELEASE_CFLAGS) -o $@ -c $<
 
 $(DEBUG_OBJS): $(SRCS) $(HDRS)
+
+$(DEBUG_OBJDIR)/%.o: %.cpp
 	@if [ ! -d $(DEBUG_OBJDIR) ]; then \
 		mkdir $(DEBUG_OBJDIR); \
 	fi

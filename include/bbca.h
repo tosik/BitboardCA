@@ -23,12 +23,11 @@
 #include <iostream>
 #include <vector>
 
+#include "bbcommon.h"
+
 
 namespace BitboardCA
 {
-	/** Bitboard type */
-	typedef unsigned long long int Bitboard;
-
 	/** Cellular Automata class */
 	class CA
 	{
@@ -40,7 +39,7 @@ namespace BitboardCA
 			std::size_t m_BitboardSizeX, m_BitboardSizeY;
 
 			/** bitboard array */
-			std::vector<Bitboard> m_BitboardList;
+			Bitboard * m_BitboardList;
 
 
 		public:
@@ -73,6 +72,7 @@ namespace BitboardCA
 
 			/** all cells die */
 			void Clear();
+			void Clear(Bitboard * bitboards, std::size_t size);
 
 			/** get a state of cell */
 			bool GetCellState(std::size_t x, std::size_t y);
@@ -96,14 +96,14 @@ namespace BitboardCA
 			/** get bitboard from board array */
 			Bitboard GetBoard(std::size_t x, std::size_t y);
 
-			/** view bitboard */
-			void ViewBitboard(Bitboard b);
-
 			/** get shift size used when set/get cells */
 			inline std::size_t GetBitboardShiftSize(std::size_t x, std::size_t y);
 
 			/** get biboard index used when set/get cells */
 			inline std::size_t GetBitboardIndex(std::size_t x, std::size_t y);
+
+			/** get biboard index used when set/get cells */
+			inline std::size_t GetBitboardSize();
 
 	};
 

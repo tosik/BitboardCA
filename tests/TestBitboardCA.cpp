@@ -30,6 +30,7 @@
 #include <cppunit/TestCase.h>
 
 #include <bbca.h>
+#include <bbviewer.h>
 
 namespace BCA = BitboardCA;
 
@@ -68,6 +69,7 @@ class TestBitboardCA
 	private:
 		CPPUNIT_TEST_SUITE(TestBitboardCA);
 		CPPUNIT_TEST(testClear);
+		CPPUNIT_TEST(testBlank);
 		CPPUNIT_TEST(testChangeCell);
 		CPPUNIT_TEST(testSmallSizeCA);
 		CPPUNIT_TEST(testSmallSizeMemberCA);
@@ -99,38 +101,60 @@ class TestBitboardCA
 			ca.Clear();
 			for ( int i = 0 ; i < size_x ; i ++ )
 				for ( int j = 0 ; j < size_y ; j ++ )
-					CPPUNIT_ASSERT_EQUAL(ca.GetCellState(i, j), false);
+					CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(i, j));
+		}
+
+		void testBlank()
+		{
+			const std::size_t SIZE_X = 5;
+			const std::size_t SIZE_Y = 5;
+			ConwaysLifeOfGameCA ca(SIZE_X, SIZE_Y);
+
+			ca.Clear();
+
+			for ( int count = 0 ; count < 100 ; count ++ )
+			{
+				ca.Step();
+
+				for ( std::size_t x = 0 ; x < SIZE_X ; x ++ )
+				{
+					for ( std::size_t y = 0 ; y < SIZE_Y ; y ++ )
+					{
+						CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(x, y));
+					}
+				}
+			}
 		}
 
 		void testChangeCell()
 		{
 			ConwaysLifeOfGameCA ca(17, 15);
 			ca.Clear();
-			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 0), false);
-			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 1), false);
+			CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(0, 0));
+			CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(0, 1));
 
 			ca.SetCellState(true, 0, 0);
-			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 0), true);
-			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 1), false);
-			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(1, 0), false);
-			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(1, 1), false);
+			CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(0, 0));
+			CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(0, 1));
+			CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(1, 0));
+			CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(1, 1));
 
 			ca.Clear();
 			ca.SetCellState(true, 1, 2);
-			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(1, 2), true);
-			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(2, 1), false);
+			CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(1, 2));
+			CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(2, 1));
 
 			ca.Clear();
 			ca.SetCellState(true, 1, 0);
-			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(1, 0), true);
-			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 0), false);
+			CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(1, 0));
+			CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(0, 0));
 
 			ca.Clear();
 			ca.SetCellState(true, 3, 2);
 			ca.SetCellState(true, 4, 2);
 			ca.SetCellState(false, 3, 2);
-			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(3, 2), false);
-			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(4, 2), true);
+			CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(3, 2));
+			CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(4, 2));
 		}
 
 		void testSmallSizeCA()
@@ -164,15 +188,15 @@ class TestBitboardCA
 			{
 				ca.Step();
 
-				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(1, 1), true);
-				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(1, 2), true);
-				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(2, 1), true);
-				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(2, 2), true);
+				CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(1, 1));
+				CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(1, 2));
+				CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(2, 1));
+				CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(2, 2));
 
-				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 0), false);
-				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 2), false);
-				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 1), false);
-				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 2), false);
+				CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(0, 0));
+				CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(0, 2));
+				CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(0, 1));
+				CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(0, 2));
 			}
 		}
 
@@ -188,11 +212,11 @@ class TestBitboardCA
 			for ( int count = 0 ; count < 100 ; count ++ )
 			{
 				ca.Step();
-				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(1, 0), (count % 2) == 1);
-				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(1, 1), true);
-				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(1, 2), (count % 2) == 1);
-				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(2, 1), (count % 2) != 1);
-				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 1), (count % 2) != 1);
+				CPPUNIT_ASSERT_EQUAL((count % 2) == 1, ca.GetCellState(1, 0));
+				CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(1, 1));
+				CPPUNIT_ASSERT_EQUAL((count % 2) == 1, ca.GetCellState(1, 2));
+				CPPUNIT_ASSERT_EQUAL((count % 2) != 1, ca.GetCellState(2, 1));
+				CPPUNIT_ASSERT_EQUAL((count % 2) != 1, ca.GetCellState(0, 1));
 			}
 		}
 
@@ -210,11 +234,11 @@ class TestBitboardCA
 		void testGlider(std::size_t X, std::size_t Y)
 		{
 			ConwaysLifeOfGameCA ca(X, Y);
-			CPPUNIT_ASSERT_EQUAL(ca.GetSizeX(), X);
-			CPPUNIT_ASSERT_EQUAL(ca.GetSizeY(), Y);
+			CPPUNIT_ASSERT_EQUAL(X, ca.GetSizeX());
+			CPPUNIT_ASSERT_EQUAL(Y, ca.GetSizeY());
 
 			ca.SetCellState(true, X-1, Y-1);
-			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(X-1, Y-1), true);
+			CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(X-1, Y-1));
 
 			// Glider
 			ca.Clear();
@@ -231,16 +255,16 @@ class TestBitboardCA
 				ca.Step();
 				ca.Step();
 
-				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(X/2 - i + 1, Y/2 + i + 0), true);
-				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(X/2 - i + 0, Y/2 + i + 1), true);
-				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(X/2 - i + 0, Y/2 + i + 2), true);
-				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(X/2 - i + 1, Y/2 + i + 2), true);
-				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(X/2 - i + 2, Y/2 + i + 2), true);
+				CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(X/2 - i + 1, Y/2 + i + 0));
+				CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(X/2 - i + 0, Y/2 + i + 1));
+				CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(X/2 - i + 0, Y/2 + i + 2));
+				CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(X/2 - i + 1, Y/2 + i + 2));
+				CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(X/2 - i + 2, Y/2 + i + 2));
 
-				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(X/2 - i + 0, Y/2 + i + 0), false);
-				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(X/2 - i + 2, Y/2 + i + 0), false);
-				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(X/2 - i + 1, Y/2 + i + 1), false);
-				CPPUNIT_ASSERT_EQUAL(ca.GetCellState(X/2 - i + 2, Y/2 + i + 1), false);
+				CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(X/2 - i + 0, Y/2 + i + 0));
+				CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(X/2 - i + 2, Y/2 + i + 0));
+				CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(X/2 - i + 1, Y/2 + i + 1));
+				CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(X/2 - i + 2, Y/2 + i + 1));
 			}
 		}
 
@@ -248,34 +272,168 @@ class TestBitboardCA
 		{
 			{
 				ConwaysLifeOfGameCA ca(1, 2);
-				CPPUNIT_ASSERT_EQUAL(ca.GetSizeX(), (size_t)1);
-				CPPUNIT_ASSERT_EQUAL(ca.GetSizeY(), (size_t)2);
+				CPPUNIT_ASSERT_EQUAL((size_t)1, ca.GetSizeX());
+				CPPUNIT_ASSERT_EQUAL((size_t)2, ca.GetSizeY());
 			}
 			{
 				ConwaysLifeOfGameCA ca(4, 7);
-				CPPUNIT_ASSERT_EQUAL(ca.GetSizeX(), (size_t)4);
-				CPPUNIT_ASSERT_EQUAL(ca.GetSizeY(), (size_t)7);
+				CPPUNIT_ASSERT_EQUAL((size_t)4, ca.GetSizeX());
+				CPPUNIT_ASSERT_EQUAL((size_t)7, ca.GetSizeY());
 			}
 			{
 				ConwaysLifeOfGameCA ca(143, 102);
-				CPPUNIT_ASSERT_EQUAL(ca.GetSizeX(), (size_t)143);
-				CPPUNIT_ASSERT_EQUAL(ca.GetSizeY(), (size_t)102);
+				CPPUNIT_ASSERT_EQUAL((size_t)143, ca.GetSizeX());
+				CPPUNIT_ASSERT_EQUAL((size_t)102, ca.GetSizeY());
 			}
 		}
 
 		void testCanCreateSmallestCA()
 		{
 			ConwaysLifeOfGameCA ca(1, 1);
-			CPPUNIT_ASSERT_EQUAL(ca.GetSizeX(), (size_t)1);
-			CPPUNIT_ASSERT_EQUAL(ca.GetSizeY(), (size_t)1);
-			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 0), false);
+			CPPUNIT_ASSERT_EQUAL((size_t)1, ca.GetSizeX());
+			CPPUNIT_ASSERT_EQUAL((size_t)1, ca.GetSizeY());
+			CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(0, 0));
 			ca.SetCellState(true, 0, 0);
-			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 0), true);
+			CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(0, 0));
 		}
 
 };
 
+
+class TestBitboardViewer
+	: public CppUnit::TestFixture
+{
+	public:
+		explicit TestBitboardViewer()
+			: CppUnit::TestFixture()
+		{
+		}
+
+	private:
+		CPPUNIT_TEST_SUITE(TestBitboardViewer);
+		CPPUNIT_TEST(testViewBitboard);
+		CPPUNIT_TEST_SUITE_END();
+
+
+	public:
+		virtual void setUp()
+		{
+		}
+		virtual void tearDown()
+		{
+		}
+
+
+	protected:
+
+		void testViewBitboard()
+		{
+			std::ostringstream stream;
+			BCA::BitboardViewer viewer(&stream);
+
+			// view blank
+			{
+				{
+					stream.str("");
+					viewer.ViewBitboard(0ULL);
+
+					// size = bit_chars(2bytes) * bitboard_size_x * bitboard_size_y + new_line_num
+					CPPUNIT_ASSERT_EQUAL((std::size_t)(2 * 8 * 8 + 8), stream.str().length());
+				}
+
+				{
+					stream.str("");
+					viewer.ViewBitboard(0ULL);
+
+					std::string right_string =
+						"                \n" \
+						"                \n" \
+						"                \n" \
+						"                \n" \
+						"                \n" \
+						"                \n" \
+						"                \n" \
+						"                \n";
+
+					CPPUNIT_ASSERT_EQUAL(right_string, stream.str());
+				}
+
+				{
+					stream.str("");
+					viewer.ViewBitboard(0xFFFFFFFFFFFFFFFFULL);
+
+					std::string right_string =
+						"* * * * * * * * \n" \
+						"* * * * * * * * \n" \
+						"* * * * * * * * \n" \
+						"* * * * * * * * \n" \
+						"* * * * * * * * \n" \
+						"* * * * * * * * \n" \
+						"* * * * * * * * \n" \
+						"* * * * * * * * \n";
+
+					CPPUNIT_ASSERT_EQUAL(right_string, stream.str());
+				}
+
+				{
+					stream.str("");
+					viewer.ViewBitboard(0x0F0F0F0F0F0F0F0F0ULL);
+
+					std::string right_string =
+						"        * * * * \n" \
+						"        * * * * \n" \
+						"        * * * * \n" \
+						"        * * * * \n" \
+						"        * * * * \n" \
+						"        * * * * \n" \
+						"        * * * * \n" \
+						"        * * * * \n";
+
+					CPPUNIT_ASSERT_EQUAL(right_string, stream.str());
+				}
+
+				{
+					stream.str("");
+					viewer.ViewBitboard(0x80C0E0F0F8FCFEFFULL);
+
+					std::string right_string =
+						"* * * * * * * * \n" \
+						"  * * * * * * * \n" \
+						"    * * * * * * \n" \
+						"      * * * * * \n" \
+						"        * * * * \n" \
+						"          * * * \n" \
+						"            * * \n" \
+						"              * \n";
+
+					CPPUNIT_ASSERT_EQUAL(right_string, stream.str());
+				}
+
+				{
+					stream.str("");
+					viewer.ViewBitboard(0x80C0E0F0F8070301ULL);
+
+					std::string right_string =
+						"*               \n" \
+						"* *             \n" \
+						"* * *           \n" \
+						"      * * * * * \n" \
+						"        * * * * \n" \
+						"          * * * \n" \
+						"            * * \n" \
+						"              * \n";
+
+					CPPUNIT_ASSERT_EQUAL(right_string, stream.str());
+				}
+			}
+		}
+
+};
+
+
+
 CPPUNIT_TEST_SUITE_REGISTRATION(TestBitboardCA);
+CPPUNIT_TEST_SUITE_REGISTRATION(TestBitboardViewer);
 
 
 int main(int argc, char * argv[])
