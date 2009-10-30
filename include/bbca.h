@@ -78,6 +78,19 @@ namespace BitboardCA
 			bool GetCellState(std::size_t x, std::size_t y);
 			void SetCellState(bool cell, std::size_t x, std::size_t y);
 
+			/** get size of bitboard list */
+			std::size_t GetBitboardListSize();
+
+			/** get size x of bitboard list */
+			std::size_t GetBitboardListSizeX();
+
+			/** get size y of bitboard list */
+			std::size_t GetBitboardListSizeY();
+
+			/** get biboard list*/
+			Bitboard * GetBitboardList();
+
+
 		protected:
 			// you should code automata rule you like.
 			// like this:
@@ -101,9 +114,6 @@ namespace BitboardCA
 
 			/** get biboard index used when set/get cells */
 			inline std::size_t GetBitboardIndex(std::size_t x, std::size_t y);
-
-			/** get biboard index used when set/get cells */
-			inline std::size_t GetBitboardSize();
 
 	};
 

@@ -51,21 +51,23 @@ namespace BitboardCA
 
 	void BitboardViewer::ViewBitboardInfo(Bitboard * bitboards, std::size_t size_x, std::size_t size_y)
 	{
-		(*m_pOstream) << "-- Bitboard Info --" << std::endl;
+		std::cout << "---- Bitboard List Info ----" << std::endl;
+		std::cout << "Size = (" << size_x << ", " << size_y << ")" << std::endl;
 
-		for ( std::size_t x = 0 ; x < size_x ; x++ )
+		for ( std::size_t y = 0 ; y < size_y ; y++ )
 		{
-			for ( std::size_t y = 0 ; y < size_y ; y++ )
+			for ( std::size_t yy = 0 ; yy < 8 ; yy++ )
 			{
-				ViewBitboard(bitboards[x + y * size_x]);
-				//for ( std::size_t yy = 0 ; y < 8 ; y++ )
-				//{
-				//	ViewBitboardLine(bitboards[x + y * size_x], yy);
-				//	(*m_pOstream) << " ";
-				//}
+				for ( std::size_t x = 0 ; x < size_x ; x++ )
+				{
+					ViewBitboardLine(bitboards[size_x - x - 1 + (size_y - y - 1) * size_x], yy);
+					(*m_pOstream) << "|";
+				}
 				(*m_pOstream) << std::endl;
 			}
-			(*m_pOstream) << std::endl;
+			for ( std::size_t x = 0 ; x < size_x ; x++ )
+				std::cout << "---------------- ";
+			std::cout << std::endl;
 		}
 	}
 

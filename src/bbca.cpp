@@ -34,7 +34,7 @@ CA::CA(std::size_t size_x, std::size_t size_y)
 	m_SizeY = size_y;
 	m_BitboardSizeX = (size_x-1)/8+3;
 	m_BitboardSizeY = (size_y-1)/8+3;
-	m_BitboardList = new Bitboard[GetBitboardSize()];
+	m_BitboardList = new Bitboard[GetBitboardListSize()];
 	Clear();
 }
 
@@ -45,8 +45,8 @@ CA::~CA()
 
 void CA::Step()
 {
-	Bitboard * new_bitboard_list = new Bitboard[GetBitboardSize()];
-	Clear(new_bitboard_list, GetBitboardSize());
+	Bitboard * new_bitboard_list = new Bitboard[GetBitboardListSize()];
+	Clear(new_bitboard_list, GetBitboardListSize());
 
 	// calc outer totalistic each bitboards
 	for ( std::size_t y = 1 ; y < m_BitboardSizeY - 1 ; y++ )
@@ -97,7 +97,7 @@ void CA::Step()
 	}
 
 	// copy back
-	for ( std::size_t i = 0 ; i < GetBitboardSize() ; i ++ )
+	for ( std::size_t i = 0 ; i < GetBitboardListSize() ; i ++ )
 		m_BitboardList[i] = new_bitboard_list[i];
 }
 
@@ -188,6 +188,7 @@ inline Bitboard CA::Rule(Bitboard board, Bitboard s0, Bitboard s1, Bitboard s2,
 	return ( ~board & s3 ) | ( board & ( s2 | s3 ) );
 }
 
+// TODO : shift BitboardViewer class
 void CA::View()
 {
 	std::cout << std::endl;
@@ -200,6 +201,11 @@ void CA::View()
 	for ( std::size_t x = 0 ; x < m_SizeX * 2 ; x++ )
 		std::cout << "-";
 	std::cout << std::endl;
+}
+
+Bitboard * CA::GetBitboardList()
+{
+	return m_BitboardList;
 }
 
 
@@ -234,7 +240,7 @@ void CA::Randomize()
 
 void CA::Clear()
 {
-	Clear(m_BitboardList, GetBitboardSize());
+	Clear(m_BitboardList, GetBitboardListSize());
 }
 
 void CA::Clear(Bitboard * bitboards, std::size_t size)
@@ -274,8 +280,18 @@ void CA::SetCellState(bool cell, std::size_t x, std::size_t y)
 		m_BitboardList[bitboard_index] &= (Bitboard)0xffffffffffffffffULL ^ ( (Bitboard)1 << shift_size );
 }
 
-inline std::size_t CA::GetBitboardSize()
+inline std::size_t CA::GetBitboardListSize()
 {
 	return m_BitboardSizeX * m_BitboardSizeY;
+}
+
+std::size_t CA::GetBitboardListSizeX()
+{
+	return m_BitboardSizeX;
+}
+
+std::size_t CA::GetBitboardListSizeY()
+{
+	return m_BitboardSizeY;
 }
 

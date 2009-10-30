@@ -29,7 +29,7 @@ OBJS		= $(SRCS:.cpp=.o)
 
 CC	= g++
 CFLAGS	= -O2 -Wall -I$(INCDIR)
-LDFLAGS	= -L$(LIBDIR) -lbbcad
+LDFLAGS	= -L$(LIBDIR) -lbbca
 AR	= ar
 ARFLAGS	= cru
 MAKE	= make
@@ -39,7 +39,7 @@ OUTPUT_NAME	= $(PROJECT_NAME)
 
 all:	$(PROJECT_NAME)
 
-$(PROJECT_NAME): $(OBJS)
+$(PROJECT_NAME): $(OBJS) $(LIBDIR)/libbbca.a
 	$(CC) -o $@ $(OBJS) $(LDFLAGS)
 
 $(OBJS): $(SRCS) $(HDRS)

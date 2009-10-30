@@ -27,6 +27,7 @@
 #include <stdlib.h>
 
 #include "bbca.h"
+#include "bbviewer.h"
 
 namespace BCA = BitboardCA;
 
@@ -55,17 +56,18 @@ class MyCA
 
 int main()
 {
-	const int count = 300;
-	MyCA ca(16,16);
+	const int count = 1000;
+	MyCA ca(24, 32);
 
 	ca.Randomize();
+	BCA::BitboardViewer viewer;
 
 	clock_t start, end;
 	start = clock();
 	for ( int steps = 0 ; steps < count ; steps ++ )
 	{
 		ca.Step();
-		ca.View();
+		viewer.ViewBitboardInfo(ca.GetBitboardList(), ca.GetBitboardListSizeX(), ca.GetBitboardListSizeY());
 	}
 	end = clock();
 	std::cout << "count = " << count << std::endl;
