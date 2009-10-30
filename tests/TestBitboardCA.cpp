@@ -121,8 +121,8 @@ class TestBitboardCA
 			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(2, 1), false);
 
 			ca.Clear();
-			ca.SetCellState(true, -1, 0);
-			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(-1, 0), true);
+			ca.SetCellState(true, 1, 0);
+			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(1, 0), true);
 			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 0), false);
 
 			ca.Clear();
