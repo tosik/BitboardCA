@@ -49,11 +49,10 @@ namespace BitboardCA
 		}
 	}
 
-	// TODO : make testcase
 	void BitboardViewer::ViewBitboardInfo(Bitboard * bitboards, std::size_t size_x, std::size_t size_y)
 	{
-		std::cout << "---- Bitboard List Info ----" << std::endl;
-		std::cout << "Size = (" << size_x << ", " << size_y << ")" << std::endl;
+		(*m_pOstream) << "---- Bitboard List Info ----" << std::endl;
+		(*m_pOstream) << "Size = (" << size_x << ", " << size_y << ")" << std::endl;
 
 		for ( std::size_t y = 0 ; y < size_y ; y++ )
 		{
@@ -67,8 +66,8 @@ namespace BitboardCA
 				(*m_pOstream) << std::endl;
 			}
 			for ( std::size_t x = 0 ; x < size_x ; x++ )
-				std::cout << "---------------- ";
-			std::cout << std::endl;
+				(*m_pOstream) << "---------------- ";
+			(*m_pOstream) << std::endl;
 		}
 	}
 

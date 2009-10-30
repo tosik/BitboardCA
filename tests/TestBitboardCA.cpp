@@ -312,6 +312,7 @@ class TestBitboardViewer
 	private:
 		CPPUNIT_TEST_SUITE(TestBitboardViewer);
 		CPPUNIT_TEST(testViewBitboard);
+		CPPUNIT_TEST(testViewBitboardInfo);
 		CPPUNIT_TEST_SUITE_END();
 
 
@@ -428,6 +429,70 @@ class TestBitboardViewer
 			}
 		}
 
+		void testViewBitboardInfo()
+		{
+			std::ostringstream stream;
+			BCA::BitboardViewer viewer(&stream);
+
+			// view blank
+			{
+				{
+					stream.str("");
+					BCA::Bitboard bitboards[6] = {
+						0ULL, 0ULL, 0ULL, 0ULL, 0ULL, 0ULL,
+					};
+					viewer.ViewBitboardInfo(bitboards, 2, 3);
+
+					CPPUNIT_ASSERT_EQUAL((std::size_t)988, stream.str().length());
+				}
+
+				{
+					stream.str("");
+					BCA::Bitboard bitboards[6] = {
+						0x0123456789ABCDEFULL,
+						0xFEDCBA9876543210ULL,
+						0x0909787856563434ULL,
+						0x1029384756473829ULL,
+						0x1122334455667788ULL,
+						0xFF00AA0033008800ULL,
+					};
+					viewer.ViewBitboardInfo(bitboards, 2, 3);
+
+					std::string right_string =
+						"---- Bitboard List Info ----\n" \
+						"Size = (2, 3)\n" \
+						"                |      *       * |\n" \
+						"      *       * |* * *   * * *   |\n" \
+						"                |  * *     * *   |\n" \
+						"* *     * *     |*   *   *   *   |\n" \
+						"                |    *       *   |\n" \
+						"  *   *   *   * |* *     * *     |\n" \
+						"                |  *       *     |\n" \
+						"* * * * * * * * |*       *       |\n" \
+						"---------------- ---------------- \n" \
+						"*     *   *     |    *   * *     |\n" \
+						"      * * *     |    *   * *     |\n" \
+						"* * *       *   |  * *   *   *   |\n" \
+						"  * *   *   *   |  * *   *   *   |\n" \
+						"* * *       *   |      * * * *   |\n" \
+						"      * * *     |      * * * *   |\n" \
+						"*     *   *     |*     *         |\n" \
+						"        *       |*     *         |\n" \
+						"---------------- ---------------- \n" \
+						"        *       |* * * *   * * * |\n" \
+						"  *     * *     |*   * *     * * |\n" \
+						"    *   *   *   |* *   *   *   * |\n" \
+						"  * *   * * *   |*     *       * |\n" \
+						"      * *     * |* * *     * *   |\n" \
+						"  *   * * *   * |*   *       *   |\n" \
+						"    * * *   * * |* *       *     |\n" \
+						"  * * * * * * * |*               |\n" \
+						"---------------- ---------------- \n";
+
+					CPPUNIT_ASSERT_EQUAL(right_string, stream.str());
+				}
+			}
+		}
 };
 
 
