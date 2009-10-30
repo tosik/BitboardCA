@@ -49,6 +49,7 @@ namespace BitboardCA
 		}
 	}
 
+	// TODO : make testcase
 	void BitboardViewer::ViewBitboardInfo(Bitboard * bitboards, std::size_t size_x, std::size_t size_y)
 	{
 		std::cout << "---- Bitboard List Info ----" << std::endl;
