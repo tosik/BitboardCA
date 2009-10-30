@@ -22,8 +22,6 @@ PROJECT_NAME	= simple_sample
 SRCDIR		= ./
 LIBDIR		= ../library
 INCDIR		= ../include
-RELEASE_LIB_NAME= $(LIBDIR)/libbbca.a
-DEBUG_LIB_NAME	= $(LIBDIR)/libbbcad.a
 SRCS		= $(SRCDIR)/main.cpp
 HDRS		= 
 HDRS		= $(INCDIR)/bbca.h
@@ -31,7 +29,7 @@ OBJS		= $(SRCS:.cpp=.o)
 
 CC	= g++
 CFLAGS	= -O2 -Wall -I$(INCDIR)
-LDFLAGS	= -L$(LIBDIR) -lbbca
+LDFLAGS	= -L$(LIBDIR) -lbbcad
 AR	= ar
 ARFLAGS	= cru
 MAKE	= make
@@ -51,8 +49,14 @@ $(OBJS): $(SRCS) $(HDRS)
 clean:
 	rm -f $(OUTDIR)/*.o
 	rm -f $(OUTPUT_NAME)
+	rm -f a.out
 
 .PHONY: run
 run:
 	./$(OUTPUT_NAME)
+
+.PHONY: debug
+debug:
+	$(CC) $(SRCS) ../src/bbca.cpp -I$(INCDIR) -g
+	gdb a.out
 
