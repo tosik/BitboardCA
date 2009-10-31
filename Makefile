@@ -49,3 +49,7 @@ test:
 runtest:
 	cd tests; $(MAKE) run
 
+.PHONY: runtestd
+runtestd:
+	cd tests; $(MAKE) rund
+

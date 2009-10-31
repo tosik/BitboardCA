@@ -182,12 +182,6 @@ Bitboard CA::StepByOuterTotalistic(Bitboard board,
 	return Rule(board, s0, s1, s2, s3, s4, s5, s6, s7, s8);
 }
 
-inline Bitboard CA::Rule(Bitboard board, Bitboard s0, Bitboard s1, Bitboard s2,
-		Bitboard s3, Bitboard s4, Bitboard s5, Bitboard s6, Bitboard s7, Bitboard s8 )
-{
-	return ( ~board & s3 ) | ( board & ( s2 | s3 ) );
-}
-
 // TODO : shift BitboardViewer class
 void CA::View()
 {

@@ -32,18 +32,26 @@ RELEASE_CFLAGS	= $(CFLAGS)
 
 TARGETS = TestBitboardCA
 
+.PHONY: all
 all: $(TARGETS)
 
 $(TARGETS): $(TARGETS).cpp $(LIBDIR)/lib$(LIBNAME).a $(LIBDIR)/lib$(LIBNAME)d.a
 	$(CC) $(DEBUG_CFLAGS) -o $@d $< $(DEBUG_LDFLAGS)
 	$(CC) $(RELEASE_CFLAGS) -o $@ $< $(RELEASE_LDFLAGS)
 
+.PHONY: clean
 clean:
 	rm -f $(TARGETS) $(TARGETS:%=%d)
 	rm -f $(TARGETS:%=%.exe)  $(TARGETS:%=%d.exe) # for cygwin
 
+.PHONY: run
 run: $(TARGETS)
 	[ -d ./results ] || mkdir results
 	./$<
+
+.PHONY: rund
+rund: $(TARGETS)
+	[ -d ./results ] || mkdir results
+	./$<d
 
 
