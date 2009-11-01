@@ -21,6 +21,7 @@
 #pragma once
 
 #include "bbcommon.h"
+#include "LargeBitboard.h"
 
 #include <iostream>
 #include <vector>
@@ -39,8 +40,11 @@ namespace BitboardCA
 			/** view bitboard */
 			void ViewBitboard(Bitboard b);
 
-			/** view Bitboard info */
-			void ViewBitboardInfo(Bitboard * bitboards, std::size_t size_x, std::size_t size_y);
+			/** view LargeBitboard */
+			void ViewLargeBitboard(Bitboard * bitboards, std::size_t size_x, std::size_t siz_y);
+
+			/** view LargeBitboard */
+			void ViewLargeBitboard(LargeBitboard & large_bitboard);
 
 			/** view one line Bitboard at position y */
 			void ViewBitboardLine(Bitboard b, std::size_t y);

@@ -26,17 +26,17 @@
 #include <time.h>
 #include <stdlib.h>
 
-#include "bbca.h"
-#include "bbviewer.h"
+#include "OuterTotalisticCA.h"
+#include "BitboardViewer.h"
 
 namespace BCA = BitboardCA;
 
 class MyCA
-	: public BCA::CA
+	: public BCA::OuterTotalisticCA
 {
 	public:
 		MyCA(std::size_t size_x, std::size_t size_y)
-			: CA(size_x, size_y)
+			: OuterTotalisticCA(size_x, size_y)
 		{
 		};
 
@@ -56,21 +56,22 @@ class MyCA
 
 int main()
 {
-	const int count = 1000;
-	MyCA ca(24, 32);
+	const int count = 100;
+	//MyCA ca(24, 32);
+	MyCA ca(12, 12);
 
 	ca.Randomize();
 	BCA::BitboardViewer viewer;
+	viewer.ViewLargeBitboard(ca);
 
 	clock_t start, end;
 	start = clock();
 	for ( int steps = 0 ; steps < count ; steps ++ )
 	{
 		ca.Step();
-		ca.View();
 
 		// view detail
-		//viewer.ViewBitboardInfo(ca.GetBitboardList(), ca.GetBitboardListSizeX(), ca.GetBitboardListSizeY());
+		viewer.ViewLargeBitboard(ca);
 	}
 	end = clock();
 	std::cout << "count = " << count << std::endl;

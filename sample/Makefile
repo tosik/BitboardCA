@@ -24,7 +24,7 @@ LIBDIR		= ../library
 INCDIR		= ../include
 SRCS		= $(SRCDIR)/main.cpp
 HDRS		= 
-HDRS		= $(INCDIR)/bbca.h
+HDRS		= $(INCDIR)/OuterTotalisticCA.h
 OBJS		= $(SRCS:.cpp=.o)
 
 CC	= g++
@@ -49,7 +49,7 @@ $(OBJS): $(SRCS) $(HDRS)
 clean:
 	rm -f $(OUTDIR)/*.o
 	rm -f $(OUTPUT_NAME)
-	rm -f a.out
+	rm -f debug.out
 
 .PHONY: run
 run:
@@ -57,6 +57,6 @@ run:
 
 .PHONY: debug
 debug:
-	$(CC) $(SRCS) ../src/bbca.cpp -I$(INCDIR) -g
-	gdb a.out
+	$(CC) -o debug.out $(SRCS) ../src/BitboardViewer.cpp ../src/LargeBitboard.cpp ../src/OuterTotalisticCA.cpp -I$(INCDIR) -g
+	gdb debug.out
 

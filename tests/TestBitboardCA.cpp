@@ -29,17 +29,17 @@
 #include <cppunit/TestCaller.h>
 #include <cppunit/TestCase.h>
 
-#include <bbca.h>
-#include <bbviewer.h>
+#include <OuterTotalisticCA.h>
+#include <BitboardViewer.h>
 
 namespace BCA = BitboardCA;
 
 class ConwaysLifeOfGameCA
-	: public BCA::CA
+	: public BCA::OuterTotalisticCA
 {
 	public:
 		ConwaysLifeOfGameCA(std::size_t size_x, std::size_t size_y)
-			: CA(size_x, size_y)
+			: OuterTotalisticCA(size_x, size_y)
 		{
 		};
 
@@ -248,12 +248,16 @@ class TestBitboardCA
 			ca.SetCellState(true, X/2 + 1, Y/2 + 2);
 			ca.SetCellState(true, X/2 + 2, Y/2 + 2);
 
+			BCA::BitboardViewer viewer(&std::cout);
+			viewer.ViewLargeBitboard(ca);
+
 			for ( std::size_t i = 1 ; i < X/2-2 ; i ++ )
 			{
 				ca.Step();
 				ca.Step();
 				ca.Step();
 				ca.Step();
+				viewer.ViewLargeBitboard(ca);
 
 				CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(X/2 - i + 1, Y/2 + i + 0));
 				CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(X/2 - i + 0, Y/2 + i + 1));
@@ -312,7 +316,7 @@ class TestBitboardViewer
 	private:
 		CPPUNIT_TEST_SUITE(TestBitboardViewer);
 		CPPUNIT_TEST(testViewBitboard);
-		CPPUNIT_TEST(testViewBitboardInfo);
+		CPPUNIT_TEST(testViewLargeBitboard);
 		CPPUNIT_TEST_SUITE_END();
 
 
@@ -429,7 +433,7 @@ class TestBitboardViewer
 			}
 		}
 
-		void testViewBitboardInfo()
+		void testViewLargeBitboard()
 		{
 			std::ostringstream stream;
 			BCA::BitboardViewer viewer(&stream);
@@ -441,9 +445,9 @@ class TestBitboardViewer
 					BCA::Bitboard bitboards[6] = {
 						0ULL, 0ULL, 0ULL, 0ULL, 0ULL, 0ULL,
 					};
-					viewer.ViewBitboardInfo(bitboards, 2, 3);
+					viewer.ViewLargeBitboard(bitboards, 2, 3);
 
-					CPPUNIT_ASSERT_EQUAL((std::size_t)988, stream.str().length());
+					CPPUNIT_ASSERT_EQUAL((std::size_t)945, stream.str().length());
 				}
 
 				{
@@ -456,11 +460,9 @@ class TestBitboardViewer
 						0x1122334455667788ULL,
 						0xFF00AA0033008800ULL,
 					};
-					viewer.ViewBitboardInfo(bitboards, 2, 3);
+					viewer.ViewLargeBitboard(bitboards, 2, 3);
 
 					std::string right_string =
-						"---- Bitboard List Info ----\n" \
-						"Size = (2, 3)\n" \
 						"                |      *       * |\n" \
 						"      *       * |* * *   * * *   |\n" \
 						"                |  * *     * *   |\n" \

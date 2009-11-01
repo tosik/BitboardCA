@@ -17,7 +17,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-#include "bbviewer.h"
+#include "BitboardViewer.h"
 
 
 namespace BitboardCA
@@ -49,10 +49,20 @@ namespace BitboardCA
 		}
 	}
 
-	void BitboardViewer::ViewBitboardInfo(Bitboard * bitboards, std::size_t size_x, std::size_t size_y)
+	void BitboardViewer::ViewLargeBitboard(Bitboard * bitboards, std::size_t size_x, std::size_t size_y)
 	{
-		(*m_pOstream) << "---- Bitboard List Info ----" << std::endl;
-		(*m_pOstream) << "Size = (" << size_x << ", " << size_y << ")" << std::endl;
+		LargeBitboard large_bitboard(size_x, size_y, true);
+		for ( std::size_t y = 0 ; y < size_y ; y ++ )
+			for ( std::size_t x = 0 ; x < size_x ; x ++ )
+				large_bitboard.SetBitboard(bitboards[x + y * size_x], x, y);
+
+		ViewLargeBitboard(large_bitboard);
+	}
+
+	void BitboardViewer::ViewLargeBitboard(LargeBitboard & large_bitboard)
+	{
+		std::size_t size_x = large_bitboard.GetBitboardListSizeX();
+		std::size_t size_y = large_bitboard.GetBitboardListSizeY();
 
 		for ( std::size_t y = 0 ; y < size_y ; y++ )
 		{
@@ -60,7 +70,7 @@ namespace BitboardCA
 			{
 				for ( std::size_t x = 0 ; x < size_x ; x++ )
 				{
-					ViewBitboardLine(bitboards[size_x - x - 1 + (size_y - y - 1) * size_x], yy);
+					ViewBitboardLine(large_bitboard.GetBitboard(size_x - x - 1, (size_y - y - 1)), yy);
 					(*m_pOstream) << "|";
 				}
 				(*m_pOstream) << std::endl;

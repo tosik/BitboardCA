@@ -25,8 +25,8 @@ RELEASE_LIB_NAME= $(LIBDIR)/lib$(PROJECT_NAME).a
 DEBUG_LIB_NAME	= $(LIBDIR)/lib$(PROJECT_NAME)d.a
 RELEASE_OBJDIR	= obj_release/
 DEBUG_OBJDIR	= obj_debug/
-SRCS		= bbca.cpp bbviewer.cpp
-HDRS		= $(INCDIR)/bbca.h $(INCDIR)/bbviewer.h
+SRCS		= OuterTotalisticCA.cpp BitboardViewer.cpp LargeBitboard.cpp
+HDRS		= $(INCDIR)/OuterTotalisticCA.h $(INCDIR)/BitboardViewer.h $(INCDIR)/LargeBitboard.h
 OBJS		= $(SRCS:.cpp=.o)
 RELEASE_OBJS	= $(OBJS:%=$(RELEASE_OBJDIR)/%)
 DEBUG_OBJS	= $(OBJS:%=$(DEBUG_OBJDIR)/%)
