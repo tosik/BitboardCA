@@ -25,6 +25,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
+#include "BitboardViewer.h"
 
 using namespace BitboardCA;
 
@@ -39,7 +40,8 @@ OuterTotalisticCA::~OuterTotalisticCA()
 
 void OuterTotalisticCA::Step()
 {
-	LargeBitboard new_large_bitboard(m_BitboardSizeX, m_BitboardSizeY);
+	BitboardViewer viewer;
+	LargeBitboard new_large_bitboard(m_BitboardSizeX, m_BitboardSizeY, true);
 	new_large_bitboard.Clear();
 
 	// calc outer totalistic each bitboards

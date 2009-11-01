@@ -227,8 +227,7 @@ class TestBitboardCA
 
 		void testCanCreateTooBigCA()
 		{
-			//testGlider(1024, 1024);
-			testGlider(102, 102);
+			testGlider(500, 600);
 		}
 
 		void testGlider(std::size_t X, std::size_t Y)
@@ -249,7 +248,6 @@ class TestBitboardCA
 			ca.SetCellState(true, X/2 + 2, Y/2 + 2);
 
 			BCA::BitboardViewer viewer(&std::cout);
-			viewer.ViewLargeBitboard(ca);
 
 			for ( std::size_t i = 1 ; i < X/2-2 ; i ++ )
 			{
@@ -257,7 +255,6 @@ class TestBitboardCA
 				ca.Step();
 				ca.Step();
 				ca.Step();
-				viewer.ViewLargeBitboard(ca);
 
 				CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(X/2 - i + 1, Y/2 + i + 0));
 				CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(X/2 - i + 0, Y/2 + i + 1));
