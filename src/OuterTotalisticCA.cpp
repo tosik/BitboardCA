@@ -75,7 +75,7 @@ void OuterTotalisticCA::Step()
 		0xfcfcfcfcfcfcfcfcULL,
 		0xfefefefefefefefeULL
 	};
-	for(std::size_t i=1; i<m_BitboardSizeY; i++)
+	for ( std::size_t i = 1 ; i < m_BitboardSizeY ; i ++)
 		new_large_bitboard.SetBitboard(
 				new_large_bitboard.GetBitboard(i * m_BitboardSizeX - 2) & MASK_X[m_SizeX % 8],
 				i * m_BitboardSizeX - 2);
@@ -91,7 +91,7 @@ void OuterTotalisticCA::Step()
 		0xffffffffffff0000ULL,
 		0xffffffffffffff00ULL
 	};
-	for(std::size_t i=1; i<m_BitboardSizeX; i++)
+	for ( std::size_t i = 1 ; i < m_BitboardSizeX ; i ++)
 		new_large_bitboard.SetBitboard(
 				new_large_bitboard.GetBitboard(i + m_BitboardSizeX * (m_BitboardSizeY - 2)) & MASK_Y[m_SizeY % 8],
 				i + m_BitboardSizeX * (m_BitboardSizeY - 2));
