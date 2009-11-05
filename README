@@ -2,3 +2,11 @@
 
 BitboardCA is a opensource C++ Libraries, Cellular Automata using Bitboard algorithm <http://en.wikipedia.org/wiki/Bitboard>.
 
+Required intalled CppUnit on your system if you run test.
+type like this and run.
+
+(RedHat, CentOS, Fedora)
+  > yum -y install cppunit-devel
+(Debian, Ubuntu)
+  > apt-get install libcppunit-dev
+
