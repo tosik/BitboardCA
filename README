@@ -1,6 +1,6 @@
 = BitboardCA README =
 
-BitboardCA is a opensource C++ Libraries, Cellular Automata using Bitboard algorithm <http://en.wikipedia.org/wiki/Bitboard>.
+BitboardCA is an opensource C++ Libraries, Cellular Automata using Bitboard algorithm <http://en.wikipedia.org/wiki/Bitboard>.
 
 Required intalled CppUnit on your system if you run test.
 type like this and run.
