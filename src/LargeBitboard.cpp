@@ -25,6 +25,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
+#include <cstdio>
 
 using namespace BitboardCA;
 
@@ -77,15 +78,14 @@ std::size_t LargeBitboard::GetSizeY()
 void LargeBitboard::Randomize()
 {
 	srand((unsigned)time(NULL));
-	for ( std::size_t y = 0 ; y < m_SizeY + 2 ; y++ )
-		for ( std::size_t x = 0 ; x < m_SizeX + 2 ; x++ )
-			// generate random number of 64 bit
-			m_BitboardList[x + y * m_BitboardSizeX] =
-				rand() +
-				rand() * 0x0000000000010000ULL +
-				rand() * 0x0000001000000000ULL +
-				rand() * 0x0100000000000000ULL +
-				( rand() % 0xf ) * 0x1000000000000000ULL;
+	for ( std::size_t i = 0 ; i < GetBitboardListSize() ; i ++ )
+		// generate random number of 64 bit
+		m_BitboardList[i] =
+			rand() +
+			rand() * 0x0000000000010000ULL +
+			rand() * 0x0000001000000000ULL +
+			rand() * 0x0100000000000000ULL +
+			( rand() % 0xf ) * 0x1000000000000000ULL;
 }
 
 void LargeBitboard::Clear()
