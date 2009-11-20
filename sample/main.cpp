@@ -54,31 +54,53 @@ class MyCA
 		};
 };
 
-int main()
+void DoWithView()
 {
-	const int count = 100;
-	//MyCA ca(24, 32);
-	MyCA ca(12, 12);
+	MyCA ca(12, 14);
 
 	ca.Randomize();
 	BCA::BitboardViewer viewer;
+
+	// view detail
 	viewer.ViewLargeBitboard(ca);
 
-	clock_t start, end;
-	start = clock();
-	for ( int steps = 0 ; steps < count ; steps ++ )
+	for ( int steps = 0 ; steps < 100 ; steps ++ )
 	{
 		ca.Step();
 
 		// view detail
 		viewer.ViewLargeBitboard(ca);
 	}
-	end = clock();
-	std::cout << "count = " << count << std::endl;
-	std::cout << "size = " << "(" << ca.GetSizeX() << ", " << ca.GetSizeY() << ")" << std::endl;
-	std::cout << "time = " << (double)(end - start)/CLOCKS_PER_SEC << std::endl;
-	std::cout << (double)(end - start)/count/CLOCKS_PER_SEC << " sec per count " << std::endl;
-
-	return 0;
 }
 
+void Benchmark()
+{
+	const int count = 50;
+
+	// big size CA
+	MyCA ca(10000, 10000);
+
+	std::cout << ca.GetSizeX() << " x " << ca.GetSizeY()
+		<< " size Cellular Automata counts " << count << " loops." << std::endl;
+	std::cout << "start benchmarking..." << std::endl;
+
+	ca.Randomize();
+
+	clock_t start, end;
+	start = clock();
+	for ( int steps = 0 ; steps < count ; steps ++ )
+		ca.Step();
+	end = clock();
+
+	std::cout << "count = " << count << std::endl;
+	std::cout << "size = " << "(" << ca.GetSizeX() << ", " << ca.GetSizeY() << ")" << std::endl;
+	std::cout << "time = " << (double)(end - start)/CLOCKS_PER_SEC << " sec" << std::endl;
+	std::cout << (double)(end - start)/count/CLOCKS_PER_SEC << " sec per count " << std::endl;
+}
+
+int main()
+{
+	DoWithView();
+	Benchmark();
+	return 0;
+}
