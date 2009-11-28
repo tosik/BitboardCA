@@ -18,14 +18,9 @@
 #
 
 
-PROJECT_NAME	= simple_sample
 SRCDIR		= ./
 LIBDIR		= ../library
 INCDIR		= ../include
-SRCS		= $(SRCDIR)/main.cpp
-HDRS		= 
-HDRS		= $(INCDIR)/OuterTotalisticCA.h
-OBJS		= $(SRCS:.cpp=.o)
 
 CC	= g++
 CFLAGS	= -O2 -Wall -I$(INCDIR)
@@ -34,29 +29,25 @@ AR	= ar
 ARFLAGS	= cru
 MAKE	= make
 
-OUTPUT_NAME	= $(PROJECT_NAME)
+TARGETS = benchmark conway
 
 
-all:	$(PROJECT_NAME)
+all: $(TARGETS)
 
-$(PROJECT_NAME): $(OBJS) $(LIBDIR)/libbbca.a
-	$(CC) -o $@ $(OBJS) $(LDFLAGS)
-
-$(OBJS): $(SRCS) $(HDRS)
-	$(CC) $(CFLAGS) -o $@ -c $<
+$(TARGETS): $(LIBDIR)/libbbca.a
+	$(CC) -o $@ $@.cpp $(CFLAGS) $(LDFLAGS)
 
 .PHONY: clean
 clean:
 	rm -f $(OUTDIR)/*.o
-	rm -f $(OUTPUT_NAME)
+	rm -f $(TARGETS)
 	rm -f debug.out
 
 .PHONY: run
 run:
-	./$(OUTPUT_NAME)
 
 .PHONY: debug
 debug:
-	$(CC) -o debug.out $(SRCS) ../src/BitboardViewer.cpp ../src/LargeBitboard.cpp ../src/OuterTotalisticCA.cpp -I$(INCDIR) -g
+	$(CC) -o debug.out conway.cpp ../src/BitboardViewer.cpp ../src/LargeBitboard.cpp ../src/OuterTotalisticCA.cpp -I$(INCDIR) -g
 	gdb debug.out
 

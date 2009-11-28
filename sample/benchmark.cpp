@@ -31,11 +31,11 @@
 
 namespace BCA = BitboardCA;
 
-class MyCA
+class ConwaysGameOfLife
 	: public BCA::OuterTotalisticCA
 {
 	public:
-		MyCA(std::size_t size_x, std::size_t size_y)
+		ConwaysGameOfLife(std::size_t size_x, std::size_t size_y)
 			: OuterTotalisticCA(size_x, size_y)
 		{
 		};
@@ -47,38 +47,16 @@ class MyCA
 			BCA::Bitboard s3, BCA::Bitboard s4, BCA::Bitboard s5,
 			BCA::Bitboard s6, BCA::Bitboard s7, BCA::Bitboard s8 )
 		{
-			// making automata rule
-			return ( ~board & s3 ) | ( board & ( s2 | s3 ) ); // Conway's game of life
-			//return ( ~board & s3 ) | ( board & ( s2 | s3 | s4 ) ); // maze
-			//return ( ~board & ( s3 | s4 | s6 | s7 | s8 ) ) | ( board & ( s3 | s6 | s7 | s8 ) ); // Day & Night
+			return ( ~board & s3 ) | ( board & ( s2 | s3 ) );
 		};
 };
 
-void DoWithView()
-{
-	MyCA ca(12, 14);
-
-	ca.Randomize();
-	BCA::BitboardViewer viewer;
-
-	// view detail
-	viewer.ViewLargeBitboard(ca);
-
-	for ( int steps = 0 ; steps < 100 ; steps ++ )
-	{
-		ca.Step();
-
-		// view detail
-		viewer.ViewLargeBitboard(ca);
-	}
-}
-
-void Benchmark()
+int main()
 {
 	const int count = 50;
 
 	// big size CA
-	MyCA ca(10000, 10000);
+	ConwaysGameOfLife ca(10000, 10000);
 
 	std::cout << ca.GetSizeX() << " x " << ca.GetSizeY()
 		<< " size Cellular Automata counts " << count << " loops." << std::endl;
@@ -96,11 +74,6 @@ void Benchmark()
 	std::cout << "size = " << "(" << ca.GetSizeX() << ", " << ca.GetSizeY() << ")" << std::endl;
 	std::cout << "time = " << (double)(end - start)/CLOCKS_PER_SEC << " sec" << std::endl;
 	std::cout << (double)(end - start)/count/CLOCKS_PER_SEC << " sec per count " << std::endl;
-}
 
-int main()
-{
-	DoWithView();
-	Benchmark();
 	return 0;
 }
