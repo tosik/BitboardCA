@@ -87,6 +87,9 @@ namespace BitboardCA
 			/** get biboard list*/
 			Bitboard * GetBitboardList();
 
+			void Copy(LargeBitboard * large);
+			void Or(LargeBitboard * large);
+			void And(LargeBitboard * large);
 
 		protected:
 			/** get bitboard from board array */

@@ -26,8 +26,17 @@
 #include <ctime>
 #include <algorithm>
 #include <cstdio>
+#include <cassert>
 
 using namespace BitboardCA;
+
+
+void CheckSize(LargeBitboard * left, LargeBitboard * right)
+{
+	assert (( left->GetBitboardListSizeX() == right->GetBitboardListSizeX() ) &&
+		( left->GetBitboardListSizeY() == right->GetBitboardListSizeY() ));
+}
+
 
 LargeBitboard::LargeBitboard(std::size_t size_x, std::size_t size_y, bool direct_size_mode)
 {
@@ -165,4 +174,24 @@ std::size_t LargeBitboard::GetBitboardListSizeY()
 	return m_BitboardSizeY;
 }
 
+void LargeBitboard::Copy(LargeBitboard * large)
+{
+	CheckSize(this, large);
+	for ( std::size_t i = 0 ; i < GetBitboardListSize() ; i ++ )
+		m_BitboardList[i] = large->GetBitboardList()[i];
+}
+
+void LargeBitboard::Or(LargeBitboard * large)
+{
+	CheckSize(this, large);
+	for ( std::size_t i = 0 ; i < GetBitboardListSize() ; i ++ )
+		m_BitboardList[i] |= large->GetBitboardList()[i];
+}
+
+void LargeBitboard::And(LargeBitboard * large)
+{
+	CheckSize(this, large);
+	for ( std::size_t i = 0 ; i < GetBitboardListSize() ; i ++ )
+		m_BitboardList[i] &= large->GetBitboardList()[i];
+}
 
