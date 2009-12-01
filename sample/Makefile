@@ -29,12 +29,12 @@ AR	= ar
 ARFLAGS	= cru
 MAKE	= make
 
-TARGETS = benchmark conway
+TARGETS = benchmark conway starwars
 
 
 all: $(TARGETS)
 
-$(TARGETS): $(LIBDIR)/libbbca.a
+$(TARGETS): $(LIBDIR)/libbbca.a $(TARGETS:%=%.cpp)
 	$(CC) -o $@ $@.cpp $(CFLAGS) $(LDFLAGS)
 
 .PHONY: clean
