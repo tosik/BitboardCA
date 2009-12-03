@@ -31,10 +31,12 @@
 using namespace BitboardCA;
 
 
-void CheckSize(LargeBitboard * left, LargeBitboard * right)
+void DebugCheckSize(LargeBitboard * left, LargeBitboard * right)
 {
+#if DEBUG
 	assert (( left->GetBitboardListSizeX() == right->GetBitboardListSizeX() ) &&
 		( left->GetBitboardListSizeY() == right->GetBitboardListSizeY() ));
+#endif
 }
 
 
@@ -176,22 +178,29 @@ std::size_t LargeBitboard::GetBitboardListSizeY()
 
 void LargeBitboard::Copy(LargeBitboard * large)
 {
-	CheckSize(this, large);
+	DebugCheckSize(this, large);
 	for ( std::size_t i = 0 ; i < GetBitboardListSize() ; i ++ )
 		m_BitboardList[i] = large->GetBitboardList()[i];
 }
 
 void LargeBitboard::Or(LargeBitboard * large)
 {
-	CheckSize(this, large);
+	DebugCheckSize(this, large);
 	for ( std::size_t i = 0 ; i < GetBitboardListSize() ; i ++ )
 		m_BitboardList[i] |= large->GetBitboardList()[i];
 }
 
 void LargeBitboard::And(LargeBitboard * large)
 {
-	CheckSize(this, large);
+	DebugCheckSize(this, large);
 	for ( std::size_t i = 0 ; i < GetBitboardListSize() ; i ++ )
 		m_BitboardList[i] &= large->GetBitboardList()[i];
+}
+
+void LargeBitboard::Xor(LargeBitboard * large)
+{
+	DebugCheckSize(this, large);
+	for ( std::size_t i = 0 ; i < GetBitboardListSize() ; i ++ )
+		m_BitboardList[i] ^= large->GetBitboardList()[i];
 }
 

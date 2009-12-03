@@ -90,6 +90,7 @@ namespace BitboardCA
 			void Copy(LargeBitboard * large);
 			void Or(LargeBitboard * large);
 			void And(LargeBitboard * large);
+			void Xor(LargeBitboard * large);
 
 		protected:
 			/** get bitboard from board array */
