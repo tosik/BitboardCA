@@ -36,7 +36,7 @@ namespace BitboardCA
 		TopCA(std::size_t size_x, std::size_t size_y)
 			: OuterTotalisticCA(size_x, size_y)
 		{
-		};
+		}
 
 	protected:
 		Bitboard Rule(
@@ -46,7 +46,8 @@ namespace BitboardCA
 			Bitboard s6, Bitboard s7, Bitboard s8 )
 		{
 			// starwars
-			return ( ~board & ( s2 | s3 | s4 ) ) | ( board & s2 );
+			//return ( ~board & ( s2 | s3 | s4 ) ) | ( board & s2 );
+			return ( board & ( s3 | s4 | s5 ) ) | ( ~board & s2 );
 		}
 	};
 
@@ -55,6 +56,7 @@ namespace BitboardCA
 	{
 		private:
 			TopCA m_TopCA;
+			LargeBitboard * m_pWeakList[4];
 
 		public:
 			/** constructor */

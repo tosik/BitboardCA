@@ -33,12 +33,13 @@ namespace BCA = BitboardCA;
 
 int main()
 {
-	BCA::GenerationOuterTotalisticCA ca(16, 8);
+	//BCA::GenerationOuterTotalisticCA ca(48, 8);
+	BCA::GenerationOuterTotalisticCA ca(48, 40);
 
 	ca.Randomize();
 	BCA::BitboardViewer viewer;
 
-	for ( int steps = 0 ; steps < 100 ; steps ++ )
+	for ( int steps = 0 ; steps < 1000 ; steps ++ )
 	{
 		ca.Step();
 	}

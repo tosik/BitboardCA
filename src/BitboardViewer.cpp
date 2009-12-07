@@ -81,4 +81,26 @@ namespace BitboardCA
 		}
 	}
 
+	void BitboardViewer::ViewLargeBitboardForDebug(LargeBitboard & large_bitboard)
+	{
+		std::size_t size_x = large_bitboard.GetBitboardListSizeX();
+		std::size_t size_y = large_bitboard.GetBitboardListSizeY();
+
+		for ( std::size_t y = 1 ; y < size_y - 1 ; y++ )
+		{
+			for ( std::size_t yy = 0 ; yy < 8 ; yy++ )
+			{
+				for ( std::size_t x = 1 ; x < size_x - 1 ; x++ )
+				{
+					ViewBitboardLine(large_bitboard.GetBitboard(size_x - x - 1, (size_y - y - 1)), yy);
+					(*m_pOstream) << "|";
+				}
+				(*m_pOstream) << std::endl;
+			}
+			for ( std::size_t x = 1 ; x < size_x - 1 ; x++ )
+				(*m_pOstream) << "---------------- ";
+			(*m_pOstream) << std::endl;
+		}
+	}
+
 }

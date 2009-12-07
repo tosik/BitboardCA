@@ -45,6 +45,7 @@ namespace BitboardCA
 
 			/** view LargeBitboard */
 			void ViewLargeBitboard(LargeBitboard & large_bitboard);
+			void ViewLargeBitboardForDebug(LargeBitboard & large_bitboard);
 
 			/** view one line Bitboard at position y */
 			void ViewBitboardLine(Bitboard b, std::size_t y);
