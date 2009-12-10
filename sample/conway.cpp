@@ -18,10 +18,6 @@
  */
 
 
-/**
- * sample
- */
-
 #include <iostream>
 #include <time.h>
 #include <stdlib.h>
@@ -38,7 +34,7 @@ class ConwaysGameOfLife
 		ConwaysGameOfLife(std::size_t size_x, std::size_t size_y)
 			: OuterTotalisticCA(size_x, size_y)
 		{
-		};
+		}
 
 	protected:
 		BCA::Bitboard Rule(
@@ -51,7 +47,7 @@ class ConwaysGameOfLife
 			return ( ~board & s3 ) | ( board & ( s2 | s3 ) ); // Conway's game of life
 			//return ( ~board & s3 ) | ( board & ( s2 | s3 | s4 ) ); // maze
 			//return ( ~board & ( s3 | s4 | s6 | s7 | s8 ) ) | ( board & ( s3 | s6 | s7 | s8 ) ); // Day & Night
-		};
+		}
 };
 
 int main()
@@ -74,3 +70,4 @@ int main()
 
 	return 0;
 }
+
