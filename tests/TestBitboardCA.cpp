@@ -30,6 +30,7 @@
 #include <cppunit/TestCase.h>
 
 #include <OuterTotalisticCA.h>
+#include <GenerationOuterTotalisticCA.h>
 #include <BitboardViewer.h>
 
 namespace BCA = BitboardCA;
@@ -54,20 +55,20 @@ class ConwaysLifeOfGameCA
 		};
 };
 
-class TestBitboardCA
+class TestOuterTotalisticCA
 	: public CppUnit::TestFixture
 {
 		ConwaysLifeOfGameCA m_small_ca;
 
 	public:
-		explicit TestBitboardCA()
+		explicit TestOuterTotalisticCA()
 			: CppUnit::TestFixture()
 			, m_small_ca(8,8)
 		{
 		}
 
 	private:
-		CPPUNIT_TEST_SUITE(TestBitboardCA);
+		CPPUNIT_TEST_SUITE(TestOuterTotalisticCA);
 		CPPUNIT_TEST(testClear);
 		CPPUNIT_TEST(testBlank);
 		CPPUNIT_TEST(testChangeCell);
@@ -495,8 +496,43 @@ class TestBitboardViewer
 };
 
 
+class TestGenerationOuterTotalisticCA
+	: public CppUnit::TestFixture
+{
+		ConwaysLifeOfGameCA m_small_ca;
 
-CPPUNIT_TEST_SUITE_REGISTRATION(TestBitboardCA);
+	public:
+		explicit TestGenerationOuterTotalisticCA()
+			: CppUnit::TestFixture()
+			, m_small_ca(8,8)
+		{
+		}
+
+	private:
+		CPPUNIT_TEST_SUITE(TestGenerationOuterTotalisticCA);
+		CPPUNIT_TEST(testClear);
+		CPPUNIT_TEST_SUITE_END();
+
+
+	public:
+		virtual void setUp()
+		{
+		}
+		virtual void tearDown()
+		{
+		}
+
+
+	protected:
+
+		void testClear()
+		{
+		}
+};
+
+
+CPPUNIT_TEST_SUITE_REGISTRATION(TestOuterTotalisticCA);
+CPPUNIT_TEST_SUITE_REGISTRATION(TestGenerationOuterTotalisticCA);
 CPPUNIT_TEST_SUITE_REGISTRATION(TestBitboardViewer);
 
 
