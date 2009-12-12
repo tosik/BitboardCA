@@ -122,12 +122,12 @@ inline std::size_t LargeBitboard::GetBitboardShiftSize(std::size_t x, std::size_
 	return ( 7 - x % 8 ) + ( 7 - y % 8 ) * 8;
 }
 
-bool LargeBitboard::GetCellState(std::size_t x, std::size_t y)
+std::size_t LargeBitboard::GetCellState(std::size_t x, std::size_t y)
 {
 	std::size_t bitboard_index = GetBitboardIndex(x, y);
 	std::size_t shift_size = GetBitboardShiftSize(x, y);
 
-	return ( ( m_BitboardList[bitboard_index] >> ( shift_size ) ) % 2 == 1 );
+	return ( m_BitboardList[bitboard_index] >> ( shift_size ) )% 2;
 }
 
 void LargeBitboard::SetCellState(bool cell, std::size_t x, std::size_t y)

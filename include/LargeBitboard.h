@@ -21,6 +21,7 @@
 #pragma once
 
 #include "bbcommon.h"
+#include "IViewableBitboard.h"
 
 #include <cstddef>
 
@@ -29,6 +30,7 @@ namespace BitboardCA
 {
 	/** Large Bitboard class */
 	class LargeBitboard
+		: public IViewableBitboard
 	{
 		protected:
 			/** size of board */
@@ -62,7 +64,7 @@ namespace BitboardCA
 			void Clear(Bitboard * bitboards, std::size_t size);
 
 			/** get a state of cell */
-			bool GetCellState(std::size_t x, std::size_t y);
+			std::size_t GetCellState(std::size_t x, std::size_t y);
 
 			/** set a state of cell */
 			void SetCellState(bool cell, std::size_t x, std::size_t y);

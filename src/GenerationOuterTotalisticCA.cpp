@@ -43,7 +43,7 @@ GenerationOuterTotalisticCA::GenerationOuterTotalisticCA(std::size_t size_x, std
 	if ( states < 2 )
 		throw; // TODO : exception
 
-	for ( int i = 0 ; i < states ; i ++ )
+	for ( std::size_t i = 0 ; i < states ; i ++ )
 		m_pWeakList.push_back(new LargeBitboard(size_x, size_y, false));
 }
 
@@ -76,7 +76,7 @@ void GenerationOuterTotalisticCA::Step()
 	// or(m_States - 1 .. 0) => B
 	LargeBitboard B(size_x, size_y);
 	B.Copy(m_pWeakList[m_States - 2]);
-	for ( int i = 0 ; i <= m_States - 3 ; i ++ )
+	for ( std::size_t i = 0 ; i <= m_States - 3 ; i ++ )
 	{
 		B.Or(m_pWeakList[i]);
 	}
@@ -103,7 +103,7 @@ void GenerationOuterTotalisticCA::Step()
 #endif
 
 	// copy back
-	for ( int i = 0 ; i <= m_States - 3 ; i ++ )
+	for ( std::size_t i = 0 ; i <= m_States - 3 ; i ++ )
 		m_pWeakList[i]->Copy(m_pWeakList[i+1]);
 	m_pWeakList[m_States - 2]->Copy(&D);
 	m_pWeakList[m_States - 1]->Copy(&C);

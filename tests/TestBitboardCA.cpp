@@ -102,7 +102,7 @@ class TestOuterTotalisticCA
 			ca.Clear();
 			for ( int i = 0 ; i < size_x ; i ++ )
 				for ( int j = 0 ; j < size_y ; j ++ )
-					CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(i, j));
+					CPPUNIT_ASSERT_EQUAL((std::size_t)0, ca.GetCellState(i, j));
 		}
 
 		void testBlank()
@@ -121,7 +121,7 @@ class TestOuterTotalisticCA
 				{
 					for ( std::size_t y = 0 ; y < SIZE_Y ; y ++ )
 					{
-						CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(x, y));
+						CPPUNIT_ASSERT_EQUAL((std::size_t)0, ca.GetCellState(x, y));
 					}
 				}
 			}
@@ -131,31 +131,31 @@ class TestOuterTotalisticCA
 		{
 			ConwaysLifeOfGameCA ca(17, 15);
 			ca.Clear();
-			CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(0, 0));
-			CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(0, 1));
+			CPPUNIT_ASSERT_EQUAL((std::size_t)0, ca.GetCellState(0, 0));
+			CPPUNIT_ASSERT_EQUAL((std::size_t)0, ca.GetCellState(0, 1));
 
 			ca.SetCellState(true, 0, 0);
-			CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(0, 0));
-			CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(0, 1));
-			CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(1, 0));
-			CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(1, 1));
+			CPPUNIT_ASSERT_EQUAL((std::size_t)1, ca.GetCellState(0, 0));
+			CPPUNIT_ASSERT_EQUAL((std::size_t)0, ca.GetCellState(0, 1));
+			CPPUNIT_ASSERT_EQUAL((std::size_t)0, ca.GetCellState(1, 0));
+			CPPUNIT_ASSERT_EQUAL((std::size_t)0, ca.GetCellState(1, 1));
 
 			ca.Clear();
 			ca.SetCellState(true, 1, 2);
-			CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(1, 2));
-			CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(2, 1));
+			CPPUNIT_ASSERT_EQUAL((std::size_t)1, ca.GetCellState(1, 2));
+			CPPUNIT_ASSERT_EQUAL((std::size_t)0, ca.GetCellState(2, 1));
 
 			ca.Clear();
 			ca.SetCellState(true, 1, 0);
-			CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(1, 0));
-			CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(0, 0));
+			CPPUNIT_ASSERT_EQUAL((std::size_t)1, ca.GetCellState(1, 0));
+			CPPUNIT_ASSERT_EQUAL((std::size_t)0, ca.GetCellState(0, 0));
 
 			ca.Clear();
 			ca.SetCellState(true, 3, 2);
 			ca.SetCellState(true, 4, 2);
 			ca.SetCellState(false, 3, 2);
-			CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(3, 2));
-			CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(4, 2));
+			CPPUNIT_ASSERT_EQUAL((std::size_t)0, ca.GetCellState(3, 2));
+			CPPUNIT_ASSERT_EQUAL((std::size_t)1, ca.GetCellState(4, 2));
 		}
 
 		void testSmallSizeCA()
@@ -165,14 +165,14 @@ class TestOuterTotalisticCA
 			ConwaysLifeOfGameCA ca(size_x, size_y);
 
 			ca.Clear();
-			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 0), false);
-			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 1), false);
+			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 0), (std::size_t)0);
+			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 1), (std::size_t)0);
 		}
 
 		void testSmallSizeMemberCA()
 		{
 			m_small_ca.Clear();
-			CPPUNIT_ASSERT_EQUAL(m_small_ca.GetCellState(0, 0), false);
+			CPPUNIT_ASSERT_EQUAL(m_small_ca.GetCellState(0, 0), (std::size_t)0);
 		}
 
 		void testBlock()
@@ -189,15 +189,15 @@ class TestOuterTotalisticCA
 			{
 				ca.Step();
 
-				CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(1, 1));
-				CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(1, 2));
-				CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(2, 1));
-				CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(2, 2));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)1, ca.GetCellState(1, 1));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)1, ca.GetCellState(1, 2));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)1, ca.GetCellState(2, 1));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)1, ca.GetCellState(2, 2));
 
-				CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(0, 0));
-				CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(0, 2));
-				CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(0, 1));
-				CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(0, 2));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)0, ca.GetCellState(0, 0));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)0, ca.GetCellState(0, 2));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)0, ca.GetCellState(0, 1));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)0, ca.GetCellState(0, 2));
 			}
 		}
 
@@ -213,11 +213,11 @@ class TestOuterTotalisticCA
 			for ( int count = 0 ; count < 100 ; count ++ )
 			{
 				ca.Step();
-				CPPUNIT_ASSERT_EQUAL((count % 2) == 1, ca.GetCellState(1, 0));
-				CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(1, 1));
-				CPPUNIT_ASSERT_EQUAL((count % 2) == 1, ca.GetCellState(1, 2));
-				CPPUNIT_ASSERT_EQUAL((count % 2) != 1, ca.GetCellState(2, 1));
-				CPPUNIT_ASSERT_EQUAL((count % 2) != 1, ca.GetCellState(0, 1));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)(count % 2), ca.GetCellState(1, 0));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)1, ca.GetCellState(1, 1));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)(count % 2), ca.GetCellState(1, 2));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)(1 - count % 2), ca.GetCellState(2, 1));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)(1 - count % 2), ca.GetCellState(0, 1));
 			}
 		}
 
@@ -238,7 +238,7 @@ class TestOuterTotalisticCA
 			CPPUNIT_ASSERT_EQUAL(Y, ca.GetSizeY());
 
 			ca.SetCellState(true, X-1, Y-1);
-			CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(X-1, Y-1));
+			CPPUNIT_ASSERT_EQUAL((std::size_t)1, ca.GetCellState(X-1, Y-1));
 
 			// Glider
 			ca.Clear();
@@ -257,16 +257,16 @@ class TestOuterTotalisticCA
 				ca.Step();
 				ca.Step();
 
-				CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(X/2 - i + 1, Y/2 + i + 0));
-				CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(X/2 - i + 0, Y/2 + i + 1));
-				CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(X/2 - i + 0, Y/2 + i + 2));
-				CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(X/2 - i + 1, Y/2 + i + 2));
-				CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(X/2 - i + 2, Y/2 + i + 2));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)1, ca.GetCellState(X/2 - i + 1, Y/2 + i + 0));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)1, ca.GetCellState(X/2 - i + 0, Y/2 + i + 1));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)1, ca.GetCellState(X/2 - i + 0, Y/2 + i + 2));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)1, ca.GetCellState(X/2 - i + 1, Y/2 + i + 2));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)1, ca.GetCellState(X/2 - i + 2, Y/2 + i + 2));
 
-				CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(X/2 - i + 0, Y/2 + i + 0));
-				CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(X/2 - i + 2, Y/2 + i + 0));
-				CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(X/2 - i + 1, Y/2 + i + 1));
-				CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(X/2 - i + 2, Y/2 + i + 1));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)0, ca.GetCellState(X/2 - i + 0, Y/2 + i + 0));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)0, ca.GetCellState(X/2 - i + 2, Y/2 + i + 0));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)0, ca.GetCellState(X/2 - i + 1, Y/2 + i + 1));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)0, ca.GetCellState(X/2 - i + 2, Y/2 + i + 1));
 			}
 		}
 
@@ -274,29 +274,29 @@ class TestOuterTotalisticCA
 		{
 			{
 				ConwaysLifeOfGameCA ca(1, 2);
-				CPPUNIT_ASSERT_EQUAL((size_t)1, ca.GetSizeX());
-				CPPUNIT_ASSERT_EQUAL((size_t)2, ca.GetSizeY());
+				CPPUNIT_ASSERT_EQUAL((std::size_t)1, ca.GetSizeX());
+				CPPUNIT_ASSERT_EQUAL((std::size_t)2, ca.GetSizeY());
 			}
 			{
 				ConwaysLifeOfGameCA ca(4, 7);
-				CPPUNIT_ASSERT_EQUAL((size_t)4, ca.GetSizeX());
-				CPPUNIT_ASSERT_EQUAL((size_t)7, ca.GetSizeY());
+				CPPUNIT_ASSERT_EQUAL((std::size_t)4, ca.GetSizeX());
+				CPPUNIT_ASSERT_EQUAL((std::size_t)7, ca.GetSizeY());
 			}
 			{
 				ConwaysLifeOfGameCA ca(143, 102);
-				CPPUNIT_ASSERT_EQUAL((size_t)143, ca.GetSizeX());
-				CPPUNIT_ASSERT_EQUAL((size_t)102, ca.GetSizeY());
+				CPPUNIT_ASSERT_EQUAL((std::size_t)143, ca.GetSizeX());
+				CPPUNIT_ASSERT_EQUAL((std::size_t)102, ca.GetSizeY());
 			}
 		}
 
 		void testCanCreateSmallestCA()
 		{
 			ConwaysLifeOfGameCA ca(1, 1);
-			CPPUNIT_ASSERT_EQUAL((size_t)1, ca.GetSizeX());
-			CPPUNIT_ASSERT_EQUAL((size_t)1, ca.GetSizeY());
-			CPPUNIT_ASSERT_EQUAL(false, ca.GetCellState(0, 0));
+			CPPUNIT_ASSERT_EQUAL((std::size_t)1, ca.GetSizeX());
+			CPPUNIT_ASSERT_EQUAL((std::size_t)1, ca.GetSizeY());
+			CPPUNIT_ASSERT_EQUAL((std::size_t)0, ca.GetCellState(0, 0));
 			ca.SetCellState(true, 0, 0);
-			CPPUNIT_ASSERT_EQUAL(true, ca.GetCellState(0, 0));
+			CPPUNIT_ASSERT_EQUAL((std::size_t)1, ca.GetCellState(0, 0));
 		}
 
 };

@@ -49,7 +49,6 @@ namespace BitboardCA
 					Bitboard board_d,                   Bitboard board_e,
 					Bitboard board_f, Bitboard board_g, Bitboard board_h);
 
-
 		protected:
 			// you should code automata rule you like.
 			// like this:

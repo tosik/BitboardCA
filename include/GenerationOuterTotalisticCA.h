@@ -25,6 +25,7 @@
 
 #include "LargeBitboard.h"
 #include "OuterTotalisticCA.h"
+#include "IViewableBitboard.h"
 
 
 namespace BitboardCA
@@ -52,6 +53,7 @@ namespace BitboardCA
 
 	/** Cellular Automata class */
 	class GenerationOuterTotalisticCA
+		: public IViewableBitboard
 	{
 		private:
 			TopCA m_TopCA;
@@ -69,6 +71,22 @@ namespace BitboardCA
 			void Step();
 
 			void Randomize();
+
+			std::size_t GetSizeX()
+			{
+				return m_TopCA.GetSizeX();
+			}
+
+			std::size_t GetSizeY()
+			{
+				return m_TopCA.GetSizeX();
+			}
+
+			std::size_t GetCellState(std::size_t x, std::size_t y)
+			{
+				// TODO
+				return 0;
+			}
 
 		protected:
 
