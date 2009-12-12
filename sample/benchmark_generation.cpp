@@ -50,9 +50,9 @@ class InnerCAForStarwars
 
 int main()
 {
-	const int count = 500;
+	const int count = 50;
 
-	BCA::GenerationOuterTotalisticCA ca(2000, 1500, 4);
+	BCA::GenerationOuterTotalisticCA ca(10000, 10000, 4);
 	InnerCAForStarwars starwars(ca.GetSizeX(), ca.GetSizeY());
 	ca.SetInnerCAInstance(&starwars);
 
