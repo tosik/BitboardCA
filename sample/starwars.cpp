@@ -53,19 +53,20 @@ class InnerCAForStarwars
 int main()
 {
 	// create a ca with generation
-	BCA::GenerationOuterTotalisticCA ca(48, 40, 4);
+	BCA::GenerationOuterTotalisticCA ca(48, 41, 4);
 	// you need inner ca instance. create and set like below.
 	InnerCAForStarwars starwars(ca.GetSizeX(), ca.GetSizeY());
 	ca.SetInnerCAInstance(&starwars);
 
 	ca.Randomize();
 	BCA::BitboardViewer viewer;
+	viewer.ViewBitboard(ca);
 
 	for ( int steps = 0 ; steps < 1000 ; steps ++ )
 	{
 		ca.Step();
 		viewer.ViewBitboard(ca);
-		std::cout << "----" << std::endl;
+		std::cout << "-----------------------" << std::endl;
 	}
 
 	return 0;

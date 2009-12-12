@@ -52,20 +52,21 @@ class ConwaysGameOfLife
 
 int main()
 {
-	ConwaysGameOfLife ca(12, 14);
+	ConwaysGameOfLife ca(48, 41);
 
 	ca.Randomize();
 	BCA::BitboardViewer viewer;
 
 	// view detail
-	viewer.ViewLargeBitboard(ca);
+	viewer.ViewBitboard(ca);
 
 	for ( int steps = 0 ; steps < 100 ; steps ++ )
 	{
 		ca.Step();
 
 		// view detail
-		viewer.ViewLargeBitboard(ca);
+		viewer.ViewBitboard(ca);
+		std::cout << "-----------------------" << std::endl;
 	}
 
 	return 0;
