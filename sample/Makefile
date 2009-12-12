@@ -29,7 +29,7 @@ AR	= ar
 ARFLAGS	= cru
 MAKE	= make
 
-TARGETS = benchmark conway starwars
+TARGETS = benchmark conway starwars benchmark_generation
 
 
 all: $(TARGETS)
