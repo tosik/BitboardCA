@@ -107,8 +107,8 @@ class TestOuterTotalisticCA
 
 		void testBlank()
 		{
-			const std::size_t SIZE_X = 5;
-			const std::size_t SIZE_Y = 5;
+			const std::size_t SIZE_X = 50;
+			const std::size_t SIZE_Y = 50;
 			ConwaysLifeOfGameCA ca(SIZE_X, SIZE_Y);
 
 			ca.Clear();
