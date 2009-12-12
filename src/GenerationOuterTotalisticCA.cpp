@@ -37,8 +37,8 @@ using namespace BitboardCA;
 
 
 GenerationOuterTotalisticCA::GenerationOuterTotalisticCA(std::size_t size_x, std::size_t size_y, std::size_t states)
-	: m_TopCA(size_x, size_y)
-	, m_States(states)
+	: m_States(states)
+	, m_pInnerCA(NULL)
 {
 	if ( states < 2 )
 		throw; // TODO : exception
@@ -56,19 +56,19 @@ GenerationOuterTotalisticCA::~GenerationOuterTotalisticCA()
 
 void GenerationOuterTotalisticCA::Step()
 {
-	std::size_t size_x = m_TopCA.GetSizeX();
-	std::size_t size_y = m_TopCA.GetSizeY();
+	std::size_t size_x = m_pInnerCA->GetSizeX();
+	std::size_t size_y = m_pInnerCA->GetSizeY();
 
 	BitboardViewer viewer;
 
 	// step(m_States - 1) => A
 	LargeBitboard A(size_x, size_y);
-	m_TopCA.Copy(m_pWeakList[m_States - 1]);
+	m_pInnerCA->Copy(m_pWeakList[m_States - 1]);
 #ifdef VIEW_DEBUG_1
-	viewer.ViewLargeBitboardForDebug(m_TopCA);
+	viewer.ViewLargeBitboardForDebug((*m_pInnerCA));
 #endif
-	m_TopCA.Step();
-	A.Copy(&m_TopCA);
+	m_pInnerCA->Step();
+	A.Copy(&(*m_pInnerCA));
 #ifdef VIEW_DEBUG_1
 	viewer.ViewLargeBitboardForDebug(A);
 #endif
@@ -109,7 +109,7 @@ void GenerationOuterTotalisticCA::Step()
 	m_pWeakList[m_States - 1]->Copy(&C);
 
 #ifdef VIEW_DEBUG_2
-	viewer.ViewLargeBitboardForDebug(m_TopCA);
+	viewer.ViewLargeBitboardForDebug((*m_pInnerCA));
 #endif
 #ifdef VIEW_DEBUG_3
 	for ( int i = m_States - 1 ; i >= 0 ; i -- )
@@ -123,5 +123,10 @@ void GenerationOuterTotalisticCA::Step()
 void GenerationOuterTotalisticCA::Randomize()
 {
 	m_pWeakList[m_States - 1]->Randomize();
+}
+
+void GenerationOuterTotalisticCA::SetInnerCAInstance(OuterTotalisticCA * inner_ca)
+{
+	m_pInnerCA = inner_ca;
 }
 

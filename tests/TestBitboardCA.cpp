@@ -510,7 +510,7 @@ class TestGenerationOuterTotalisticCA
 
 	private:
 		CPPUNIT_TEST_SUITE(TestGenerationOuterTotalisticCA);
-		CPPUNIT_TEST(testClear);
+		CPPUNIT_TEST(testSmallCase);
 		CPPUNIT_TEST_SUITE_END();
 
 
@@ -525,7 +525,7 @@ class TestGenerationOuterTotalisticCA
 
 	protected:
 
-		void testClear()
+		void testSmallCase()
 		{
 		}
 };

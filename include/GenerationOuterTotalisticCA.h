@@ -30,35 +30,14 @@
 
 namespace BitboardCA
 {
-	class TopCA
-		: public OuterTotalisticCA
-	{
-	public:
-		TopCA(std::size_t size_x, std::size_t size_y)
-			: OuterTotalisticCA(size_x, size_y)
-		{
-		}
-
-	protected:
-		Bitboard Rule(
-			Bitboard board,
-			Bitboard s0, Bitboard s1, Bitboard s2,
-			Bitboard s3, Bitboard s4, Bitboard s5,
-			Bitboard s6, Bitboard s7, Bitboard s8 )
-		{
-			// starwars
-			return ( board & ( s3 | s4 | s5 ) ) | ( ~board & s2 );
-		}
-	};
-
 	/** Cellular Automata class */
 	class GenerationOuterTotalisticCA
 		: public IViewableBitboard
 	{
 		private:
-			TopCA m_TopCA;
-			std::vector<LargeBitboard *> m_pWeakList;
 			std::size_t m_States;
+			OuterTotalisticCA * m_pInnerCA;
+			std::vector<LargeBitboard *> m_pWeakList;
 
 		public:
 			/** constructor */
@@ -72,14 +51,17 @@ namespace BitboardCA
 
 			void Randomize();
 
+			/** instance of inner OuterTotalisticCA setter */
+			void SetInnerCAInstance(OuterTotalisticCA * inner_ca);
+
 			std::size_t GetSizeX()
 			{
-				return m_TopCA.GetSizeX();
+				return m_pWeakList[0]->GetSizeX();
 			}
 
 			std::size_t GetSizeY()
 			{
-				return m_TopCA.GetSizeY();
+				return m_pWeakList[0]->GetSizeY();
 			}
 
 			std::size_t GetCellState(std::size_t x, std::size_t y)
