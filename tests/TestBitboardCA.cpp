@@ -35,11 +35,11 @@
 
 namespace BCA = BitboardCA;
 
-class ConwaysLifeOfGameCA
+class ConwaysGameOfLifeCA
 	: public BCA::OuterTotalisticCA
 {
 	public:
-		ConwaysLifeOfGameCA(std::size_t size_x, std::size_t size_y)
+		ConwaysGameOfLifeCA(std::size_t size_x, std::size_t size_y)
 			: OuterTotalisticCA(size_x, size_y)
 		{
 		};
@@ -58,7 +58,7 @@ class ConwaysLifeOfGameCA
 class TestOuterTotalisticCA
 	: public CppUnit::TestFixture
 {
-		ConwaysLifeOfGameCA m_small_ca;
+		ConwaysGameOfLifeCA m_small_ca;
 
 	public:
 		explicit TestOuterTotalisticCA()
@@ -98,7 +98,7 @@ class TestOuterTotalisticCA
 		{
 			int size_x = 25;
 			int size_y = 29;
-			ConwaysLifeOfGameCA ca(size_x, size_y);
+			ConwaysGameOfLifeCA ca(size_x, size_y);
 			ca.Clear();
 			for ( int i = 0 ; i < size_x ; i ++ )
 				for ( int j = 0 ; j < size_y ; j ++ )
@@ -109,34 +109,27 @@ class TestOuterTotalisticCA
 		{
 			const std::size_t SIZE_X = 5;
 			const std::size_t SIZE_Y = 5;
-			std::cout << "hello" << std::endl;
-			ConwaysLifeOfGameCA ca(SIZE_X, SIZE_Y);
-			std::cout << "hello" << std::endl;
+			ConwaysGameOfLifeCA ca(SIZE_X, SIZE_Y);
 
 			ca.Clear();
-			std::cout << "hello" << std::endl;
 
 			for ( int count = 0 ; count < 100 ; count ++ )
 			{
-			std::cout << "hello" << std::endl;
 				ca.Step();
 
 				for ( std::size_t x = 0 ; x < SIZE_X ; x ++ )
 				{
-			std::cout << "hello" << std::endl;
 					for ( std::size_t y = 0 ; y < SIZE_Y ; y ++ )
 					{
-			std::cout << "hello" << std::endl;
 						CPPUNIT_ASSERT_EQUAL((std::size_t)0, ca.GetCellState(x, y));
 					}
 				}
 			}
-			std::cout << "hello" << std::endl;
 		}
 
 		void testChangeCell()
 		{
-			ConwaysLifeOfGameCA ca(17, 15);
+			ConwaysGameOfLifeCA ca(17, 15);
 			ca.Clear();
 			CPPUNIT_ASSERT_EQUAL((std::size_t)0, ca.GetCellState(0, 0));
 			CPPUNIT_ASSERT_EQUAL((std::size_t)0, ca.GetCellState(0, 1));
@@ -169,7 +162,7 @@ class TestOuterTotalisticCA
 		{
 			int size_x = 8;
 			int size_y = 8;
-			ConwaysLifeOfGameCA ca(size_x, size_y);
+			ConwaysGameOfLifeCA ca(size_x, size_y);
 
 			ca.Clear();
 			CPPUNIT_ASSERT_EQUAL(ca.GetCellState(0, 0), (std::size_t)0);
@@ -184,7 +177,7 @@ class TestOuterTotalisticCA
 
 		void testBlock()
 		{
-			ConwaysLifeOfGameCA ca(5, 5);
+			ConwaysGameOfLifeCA ca(5, 5);
 
 			// blinker
 			ca.Clear();
@@ -210,7 +203,7 @@ class TestOuterTotalisticCA
 
 		void testBlinker()
 		{
-			ConwaysLifeOfGameCA ca(5, 5);
+			ConwaysGameOfLifeCA ca(5, 5);
 
 			// blinker
 			ca.Clear();
@@ -240,7 +233,7 @@ class TestOuterTotalisticCA
 
 		void testGlider(std::size_t X, std::size_t Y)
 		{
-			ConwaysLifeOfGameCA ca(X, Y);
+			ConwaysGameOfLifeCA ca(X, Y);
 			CPPUNIT_ASSERT_EQUAL(X, ca.GetSizeX());
 			CPPUNIT_ASSERT_EQUAL(Y, ca.GetSizeY());
 
@@ -280,17 +273,17 @@ class TestOuterTotalisticCA
 		void testGetSize()
 		{
 			{
-				ConwaysLifeOfGameCA ca(1, 2);
+				ConwaysGameOfLifeCA ca(1, 2);
 				CPPUNIT_ASSERT_EQUAL((std::size_t)1, ca.GetSizeX());
 				CPPUNIT_ASSERT_EQUAL((std::size_t)2, ca.GetSizeY());
 			}
 			{
-				ConwaysLifeOfGameCA ca(4, 7);
+				ConwaysGameOfLifeCA ca(4, 7);
 				CPPUNIT_ASSERT_EQUAL((std::size_t)4, ca.GetSizeX());
 				CPPUNIT_ASSERT_EQUAL((std::size_t)7, ca.GetSizeY());
 			}
 			{
-				ConwaysLifeOfGameCA ca(143, 102);
+				ConwaysGameOfLifeCA ca(143, 102);
 				CPPUNIT_ASSERT_EQUAL((std::size_t)143, ca.GetSizeX());
 				CPPUNIT_ASSERT_EQUAL((std::size_t)102, ca.GetSizeY());
 			}
@@ -298,7 +291,7 @@ class TestOuterTotalisticCA
 
 		void testCanCreateSmallestCA()
 		{
-			ConwaysLifeOfGameCA ca(1, 1);
+			ConwaysGameOfLifeCA ca(1, 1);
 			CPPUNIT_ASSERT_EQUAL((std::size_t)1, ca.GetSizeX());
 			CPPUNIT_ASSERT_EQUAL((std::size_t)1, ca.GetSizeY());
 			CPPUNIT_ASSERT_EQUAL((std::size_t)0, ca.GetCellState(0, 0));
@@ -527,7 +520,7 @@ class InnerCAForGeneration
 class TestGenerationOuterTotalisticCA
 	: public CppUnit::TestFixture
 {
-		ConwaysLifeOfGameCA m_small_ca;
+		ConwaysGameOfLifeCA m_small_ca;
 
 	public:
 		explicit TestGenerationOuterTotalisticCA()
