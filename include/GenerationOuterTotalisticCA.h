@@ -75,6 +75,12 @@ namespace BitboardCA
 				return 0;
 			}
 
+			void SetCellState(std::size_t x, std::size_t y, std::size_t state)
+			{
+				for ( std::size_t i = 0 ; i < m_States ; i ++ )
+					m_pWeakList[i]->SetCellState((i == state), x, y);
+			}
+
 		protected:
 
 	};

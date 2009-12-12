@@ -36,7 +36,6 @@ class InnerCAForStarwars
 		InnerCAForStarwars(std::size_t size_x, std::size_t size_y)
 			: BCA::OuterTotalisticCA(size_x, size_y)
 		{
-			std::cout << "created inner ca" << std::endl;
 		}
 
 	protected:

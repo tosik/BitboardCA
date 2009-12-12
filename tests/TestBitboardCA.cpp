@@ -496,6 +496,27 @@ class TestBitboardViewer
 };
 
 
+class InnerCAForGeneration
+	: public BCA::OuterTotalisticCA
+{
+	public:
+		InnerCAForGeneration(std::size_t size_x, std::size_t size_y)
+			: BCA::OuterTotalisticCA(size_x, size_y)
+		{
+		}
+
+	protected:
+		BCA::Bitboard Rule(
+				BCA::Bitboard board,
+				BCA::Bitboard s0, BCA::Bitboard s1, BCA::Bitboard s2,
+				BCA::Bitboard s3, BCA::Bitboard s4, BCA::Bitboard s5,
+				BCA::Bitboard s6, BCA::Bitboard s7, BCA::Bitboard s8 )
+		{
+			// starwars
+			return ( board & ( s3 | s4 | s5 ) ) | ( ~board & s2 );
+		}
+};
+
 class TestGenerationOuterTotalisticCA
 	: public CppUnit::TestFixture
 {
@@ -527,6 +548,25 @@ class TestGenerationOuterTotalisticCA
 
 		void testSmallCase()
 		{
+			BCA::GenerationOuterTotalisticCA ca(12, 9, 4);
+			InnerCAForGeneration inner(ca.GetSizeX(), ca.GetSizeY());
+			ca.SetInnerCAInstance(&inner);
+
+			ca.SetCellState(4, 5, 3);
+			ca.SetCellState(4, 6, 3);
+			ca.SetCellState(5, 5, 3);
+			ca.SetCellState(4, 4, 3);
+			ca.SetCellState(3, 5, 3);
+
+			for ( int i = 0 ; i < 100 ; i ++ )
+			{
+				CPPUNIT_ASSERT_EQUAL((std::size_t)3, ca.GetCellState(4, 5));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)3, ca.GetCellState(4, 6));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)3, ca.GetCellState(5, 5));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)3, ca.GetCellState(4, 4));
+				CPPUNIT_ASSERT_EQUAL((std::size_t)3, ca.GetCellState(3, 5));
+				ca.Step();
+			}
 		}
 };
 
