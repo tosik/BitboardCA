@@ -107,24 +107,30 @@ class TestOuterTotalisticCA
 
 		void testBlank()
 		{
-			const std::size_t SIZE_X = 50;
-			const std::size_t SIZE_Y = 50;
+			const std::size_t SIZE_X = 5;
+			const std::size_t SIZE_Y = 5;
 			ConwaysLifeOfGameCA ca(SIZE_X, SIZE_Y);
+			std::cout << "hello" << std::endl;
 
 			ca.Clear();
+			std::cout << "hello" << std::endl;
 
 			for ( int count = 0 ; count < 100 ; count ++ )
 			{
+			std::cout << "hello" << std::endl;
 				ca.Step();
 
 				for ( std::size_t x = 0 ; x < SIZE_X ; x ++ )
 				{
+			std::cout << "hello" << std::endl;
 					for ( std::size_t y = 0 ; y < SIZE_Y ; y ++ )
 					{
+			std::cout << "hello" << std::endl;
 						CPPUNIT_ASSERT_EQUAL((std::size_t)0, ca.GetCellState(x, y));
 					}
 				}
 			}
+			std::cout << "hello" << std::endl;
 		}
 
 		void testChangeCell()
