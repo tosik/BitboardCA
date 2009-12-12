@@ -27,6 +27,33 @@ namespace BitboardCA
 		m_pOstream = ostream;
 	}
 
+	std::string GetCellString(std::size_t s)
+	{
+		switch ((int)s)
+		{
+			case 0:
+				return " ";
+			case 1:
+				return "*";
+			case 2:
+				return "o";
+			case 3:
+				return "@";
+			default:
+				return "!";
+		}
+	}
+
+	void BitboardViewer::ViewBitboard(IViewableBitboard & viewable)
+	{
+		for ( std::size_t y = 0 ; y < viewable.GetSizeY() ; y ++ )
+		{
+			for ( std::size_t x = 0 ; x < viewable.GetSizeX() ; x ++ )
+				(*m_pOstream) << GetCellString(viewable.GetCellState(x, y)) << " ";
+			(*m_pOstream) << std::endl;
+		}
+	}
+
 	void BitboardViewer::ViewBitboardLine(Bitboard b, std::size_t y)
 	{
 		b >>= y * 8;

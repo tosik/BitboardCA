@@ -22,6 +22,7 @@
 
 #include "bbcommon.h"
 #include "LargeBitboard.h"
+#include "IViewableBitboard.h"
 
 #include <iostream>
 #include <vector>
@@ -36,6 +37,9 @@ namespace BitboardCA
 
 		public:
 			BitboardViewer(std::ostream * ostream = &std::cout);
+
+			/** view bitboard */
+			void ViewBitboard(IViewableBitboard & viewable);
 
 			/** view bitboard */
 			void ViewBitboard(Bitboard b);

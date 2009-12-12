@@ -30,7 +30,7 @@ namespace BCA = BitboardCA;
 int main()
 {
 	//BCA::GenerationOuterTotalisticCA ca(48, 8);
-	BCA::GenerationOuterTotalisticCA ca(48, 32, 4);
+	BCA::GenerationOuterTotalisticCA ca(48, 40, 4);
 
 	ca.Randomize();
 	BCA::BitboardViewer viewer;
@@ -38,6 +38,8 @@ int main()
 	for ( int steps = 0 ; steps < 1000 ; steps ++ )
 	{
 		ca.Step();
+		viewer.ViewBitboard(ca);
+		std::cout << "----" << std::endl;
 	}
 
 	return 0;

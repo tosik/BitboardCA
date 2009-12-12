@@ -79,12 +79,17 @@ namespace BitboardCA
 
 			std::size_t GetSizeY()
 			{
-				return m_TopCA.GetSizeX();
+				return m_TopCA.GetSizeY();
 			}
 
 			std::size_t GetCellState(std::size_t x, std::size_t y)
 			{
-				// TODO
+				for ( std::size_t i = m_States ; i > 1 ; i -- )
+				{
+					std::size_t state = i - (std::size_t)1;
+					if ( m_pWeakList[state]->GetCellState(x, y) == 1 )
+						return state;
+				}
 				return 0;
 			}
 

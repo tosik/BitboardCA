@@ -32,7 +32,7 @@ using namespace BitboardCA;
 
 
 //#define VIEW_DEBUG_1
-#define VIEW_DEBUG_2
+//#define VIEW_DEBUG_2
 //#define VIEW_DEBUG_3
 
 
