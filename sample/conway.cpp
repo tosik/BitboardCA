@@ -60,7 +60,7 @@ int main()
 	// view detail
 	viewer.ViewBitboard(ca);
 
-	for ( int steps = 0 ; steps < 100 ; steps ++ )
+	for ( int steps = 0 ; steps < 1000 ; steps ++ )
 	{
 		ca.Step();
 
