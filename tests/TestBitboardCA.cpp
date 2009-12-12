@@ -109,6 +109,7 @@ class TestOuterTotalisticCA
 		{
 			const std::size_t SIZE_X = 5;
 			const std::size_t SIZE_Y = 5;
+			std::cout << "hello" << std::endl;
 			ConwaysLifeOfGameCA ca(SIZE_X, SIZE_Y);
 			std::cout << "hello" << std::endl;
 
