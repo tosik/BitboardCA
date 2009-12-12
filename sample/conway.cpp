@@ -52,7 +52,7 @@ class ConwaysGameOfLife
 
 int main()
 {
-	ConwaysGameOfLife ca(48, 41);
+	ConwaysGameOfLife ca(48, 40);
 
 	ca.Randomize();
 	BCA::BitboardViewer viewer;

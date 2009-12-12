@@ -53,7 +53,7 @@ class InnerCAForStarwars
 int main()
 {
 	// create a ca with generation
-	BCA::GenerationOuterTotalisticCA ca(48, 41, 4);
+	BCA::GenerationOuterTotalisticCA ca(48, 40, 4);
 	// you need inner ca instance. create and set like below.
 	InnerCAForStarwars starwars(ca.GetSizeX(), ca.GetSizeY());
 	ca.SetInnerCAInstance(&starwars);
