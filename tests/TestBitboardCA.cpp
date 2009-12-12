@@ -531,7 +531,8 @@ class TestGenerationOuterTotalisticCA
 
 	private:
 		CPPUNIT_TEST_SUITE(TestGenerationOuterTotalisticCA);
-		CPPUNIT_TEST(testSmallCase);
+		CPPUNIT_TEST(testStableSmallCase);
+		CPPUNIT_TEST(testActivitySmallCase);
 		CPPUNIT_TEST_SUITE_END();
 
 
@@ -546,7 +547,7 @@ class TestGenerationOuterTotalisticCA
 
 	protected:
 
-		void testSmallCase()
+		void testStableSmallCase()
 		{
 			BCA::GenerationOuterTotalisticCA ca(12, 9, 4);
 			InnerCAForGeneration inner(ca.GetSizeX(), ca.GetSizeY());
@@ -567,6 +568,43 @@ class TestGenerationOuterTotalisticCA
 				CPPUNIT_ASSERT_EQUAL((std::size_t)3, ca.GetCellState(3, 5));
 				ca.Step();
 			}
+		}
+
+		void testActivitySmallCase()
+		{
+			const std::size_t SIZE_X = 12;
+			const std::size_t SIZE_Y = 9;
+			BCA::GenerationOuterTotalisticCA ca(SIZE_X, SIZE_Y, 4);
+			InnerCAForGeneration inner(SIZE_X, SIZE_Y);
+			ca.SetInnerCAInstance(&inner);
+
+			ca.SetCellState(4, 4, 3);
+			ca.SetCellState(4, 3, 3);
+			ca.SetCellState(4, 2, 3);
+			ca.SetCellState(4, 3, 3);
+			ca.SetCellState(3, 5, 3);
+
+			BCA::BitboardViewer viewer;
+
+			for ( int i = 0 ; i < 3 ; i ++ )
+			{
+				ca.Step();
+			}
+
+			std::size_t expect[SIZE_Y][SIZE_X] = {
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 1, 0, 1, 3, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			};
+			for ( int y = 0 ; y < ca.GetSizeY() ; y ++ )
+				for ( int x = 0 ; x < ca.GetSizeX() ; x ++ )
+					CPPUNIT_ASSERT_EQUAL(expect[y][x], ca.GetCellState(x, y));
 		}
 };
 
