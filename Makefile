@@ -37,10 +37,6 @@ lib:
 sample:
 	cd sample; $(MAKE)
 
-.PHONY: runsample
-runsample:
-	cd sample; $(MAKE) run
-
 .PHONY: test
 test:
 	cd tests; $(MAKE)

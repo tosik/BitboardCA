@@ -43,9 +43,6 @@ clean:
 	rm -f $(TARGETS)
 	rm -f debug.out
 
-.PHONY: run
-run:
-
 .PHONY: debug
 debug:
 	$(CC) -o debug.out conway.cpp ../src/BitboardViewer.cpp ../src/LargeBitboard.cpp ../src/OuterTotalisticCA.cpp -I$(INCDIR) -g
