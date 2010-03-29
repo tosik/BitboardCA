@@ -182,4 +182,3 @@ Bitboard OuterTotalisticCA::StepByOuterTotalistic(Bitboard board,
 	// calc optional rule using sums
 	return Rule(board, s0, s1, s2, s3, s4, s5, s6, s7, s8);
 }
-
