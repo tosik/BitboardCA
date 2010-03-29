@@ -49,7 +49,7 @@ namespace BitboardCA
 		for ( std::size_t y = 0 ; y < viewable.GetSizeY() ; y ++ )
 		{
 			for ( std::size_t x = 0 ; x < viewable.GetSizeX() ; x ++ )
-				(*m_pOstream) << GetCellString(viewable.GetCellState(x, y)) << " ";
+				(*m_pOstream) << GetCellString(viewable.GetCellState(x, y)).c_str() << " ";
 			(*m_pOstream) << std::endl;
 		}
 	}
