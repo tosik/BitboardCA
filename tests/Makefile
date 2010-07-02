@@ -23,7 +23,7 @@ INCDIR	= ../include/
 CFLAGS	= -O2 -Wall -I$(INCDIR)
 LIBDIR	= ../library/
 LIBNAME	= bbca
-DEBUG_LDFLAGS	= -L$(LIBDIR) -l$(LIBNAME)d -lcppunit -ldl -g
+DEBUG_LDFLAGS	= -L$(LIBDIR) -l$(LIBNAME)d -lcppunit -ldl -g #-lgcov
 RELEASE_LDFLAGS	= -L$(LIBDIR) -l$(LIBNAME) -lcppunit -ldl
 
 DEBUG_CFLAGS	= $(CFLAGS) -g

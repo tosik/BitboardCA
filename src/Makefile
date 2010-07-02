@@ -38,8 +38,8 @@ AR	= ar
 ARFLAGS	= cru
 MAKE	= make
 
-DEBUG_CFLAGS	= $(CFLAGS)
-RELEASE_CFLAGS	= $(CFLAGS) -g
+DEBUG_CFLAGS	= $(CFLAGS) -g #-coverage -fprofile-arcs -ftest-coverage
+RELEASE_CFLAGS	= $(CFLAGS)
 
 
 all:	$(RELEASE_LIB_NAME) $(DEBUG_LIB_NAME)
@@ -79,4 +79,7 @@ clean:
 	rm -f $(DEBUG_OBJS)
 	rm -f $(RELEASE_LIB_NAME)
 	rm -f $(DEBUG_LIB_NAME)
+	rm -f $(DEBUG_OBJDIR)/*.gcov
+	rm -f $(DEBUG_OBJDIR)/*.gcda
+	rm -f $(DEBUG_OBJDIR)/*.gcno
 
