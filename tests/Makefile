@@ -23,7 +23,7 @@ INCDIR	= ../include/
 CFLAGS	= -O2 -Wall -I$(INCDIR)
 LIBDIR	= ../library/
 LIBNAME	= bbca
-DEBUG_LDFLAGS	= -L$(LIBDIR) -l$(LIBNAME)d -lcppunit -ldl -g #-lgcov
+DEBUG_LDFLAGS	= -L$(LIBDIR) -l$(LIBNAME)d -lcppunit -ldl -g -lgcov --coverage
 RELEASE_LDFLAGS	= -L$(LIBDIR) -l$(LIBNAME) -lcppunit -ldl
 
 DEBUG_CFLAGS	= $(CFLAGS) -g
@@ -42,7 +42,6 @@ $(TARGETS): $(TARGETS).cpp $(LIBDIR)/lib$(LIBNAME).a $(LIBDIR)/lib$(LIBNAME)d.a
 .PHONY: clean
 clean:
 	rm -f $(TARGETS) $(TARGETS:%=%d)
-	rm -f $(TARGETS:%=%.exe)  $(TARGETS:%=%d.exe) # for cygwin
 
 .PHONY: run
 run: $(TARGETS)
@@ -50,8 +49,7 @@ run: $(TARGETS)
 	./$<
 
 .PHONY: rund
-rund: $(TARGETS)
+rund: $(TARGETS:%=%d)
 	[ -d ./results ] || mkdir results
-	./$<d
-
+	./$<
 
