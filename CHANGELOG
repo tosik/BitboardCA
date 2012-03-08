@@ -1,6 +1,6 @@
 = CHANGELOG =
 
-== BitboardCA 0.1 ==
+== BitboardCA 0.2 ==
 2009-12-12
  * [BIG] Added Generation Outer-Totalistic CA. see sample/starwars.cpp
  * Added IViewableBitboard interface and Viewer function. see ViewBitboard(IViewableBitboard) at include/BitboardViewer.h.
