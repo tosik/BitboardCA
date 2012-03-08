@@ -9,4 +9,6 @@ type like this and run.
   > yum -y install cppunit-devel
 (Debian, Ubuntu)
   > apt-get install libcppunit-dev
+(MacOSX with homebrew)
+  > brew install cppunit
 
