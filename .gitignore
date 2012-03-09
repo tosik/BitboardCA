@@ -1,0 +1,13 @@
+.DS_Store
+*.o
+*.a
+
+sample/benchmark
+sample/benchmark_generation
+sample/starwars
+sample/conway
+
+tests/TestBitboardCA
+tests/TestBitboardCAd
+tests/TestBitboardCAd.dSYM
+tests/results
