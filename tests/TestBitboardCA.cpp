@@ -582,8 +582,8 @@ class TestGenerationOuterTotalisticCA
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			};
-			for ( int y = 0 ; y < ca.GetSizeY() ; y ++ )
-				for ( int x = 0 ; x < ca.GetSizeX() ; x ++ )
+			for ( std::size_t y = 0 ; y < ca.GetSizeY() ; y ++ )
+				for ( std::size_t x = 0 ; x < ca.GetSizeX() ; x ++ )
 					CPPUNIT_ASSERT_EQUAL(expect[y][x], ca.GetCellState(x, y));
 		}
 };
