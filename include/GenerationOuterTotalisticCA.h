@@ -1,8 +1,5 @@
 #pragma once
 
-#include <iostream>
-#include <vector>
-
 #include "LargeBitboard.h"
 #include "OuterTotalisticCA.h"
 #include "IViewableBitboard.h"

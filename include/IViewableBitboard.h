@@ -2,8 +2,6 @@
 
 #include "bbcommon.h"
 
-#include <cstddef>
-
 
 namespace BitboardCA
 {

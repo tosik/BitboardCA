@@ -4,9 +4,6 @@
 #include "LargeBitboard.h"
 #include "IViewableBitboard.h"
 
-#include <iostream>
-#include <vector>
-
 
 namespace BitboardCA
 {

@@ -1,12 +1,5 @@
 #include "LargeBitboard.h"
 
-#include <cstddef>
-#include <cstdlib>
-#include <ctime>
-#include <algorithm>
-#include <cstdio>
-#include <cassert>
-
 using namespace BitboardCA;
 
 

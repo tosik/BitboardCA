@@ -3,8 +3,6 @@
 #include "bbcommon.h"
 #include "IViewableBitboard.h"
 
-#include <cstddef>
-
 
 namespace BitboardCA
 {

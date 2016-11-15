@@ -1,10 +1,5 @@
 #include "OuterTotalisticCA.h"
 
-#include <cstddef>
-#include <cstdlib>
-#include <cstdio>
-#include <ctime>
-#include <algorithm>
 #include "BitboardViewer.h"
 
 using namespace BitboardCA;
