@@ -18,7 +18,7 @@ AR	= ar
 ARFLAGS	= cru
 MAKE	= make
 
-DEBUG_CFLAGS	= $(CFLAGS) -g -coverage -fprofile-arcs -ftest-coverage
+DEBUG_CFLAGS	= $(CFLAGS) -g
 RELEASE_CFLAGS	= $(CFLAGS)
 
 
