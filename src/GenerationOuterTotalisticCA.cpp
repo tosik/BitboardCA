@@ -8,7 +8,10 @@ GenerationOuterTotalisticCA::GenerationOuterTotalisticCA(unsigned int size_x, un
 	, m_pInnerCA(0)
 {
 	if ( states < 2 )
-		throw; // TODO : exception
+	{
+		// FIXME: Embedded edition cannot throw exceptions.
+		return;
+	}
 
 	m_pWeakList = new LargeBitboard*[states];
 	for ( unsigned int i = 0 ; i < states ; i ++ )
