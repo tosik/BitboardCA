@@ -11,7 +11,7 @@ class InnerCAForStarwars
 	: public BCA::OuterTotalisticCA
 {
 	public:
-		InnerCAForStarwars(std::size_t size_x, std::size_t size_y)
+		InnerCAForStarwars(unsigned int size_x, unsigned int size_y)
 			: BCA::OuterTotalisticCA(size_x, size_y)
 		{
 		}

@@ -4,7 +4,7 @@
 
 using namespace BitboardCA;
 
-OuterTotalisticCA::OuterTotalisticCA(std::size_t size_x, std::size_t size_y)
+OuterTotalisticCA::OuterTotalisticCA(unsigned int size_x, unsigned int size_y)
 	: LargeBitboard(size_x, size_y)
 {
 }
@@ -20,9 +20,9 @@ void OuterTotalisticCA::Step()
 	new_large_bitboard.Clear();
 
 	// calc outer totalistic each bitboards
-	for ( std::size_t y = 1 ; y < m_BitboardSizeY - 1 ; y++ )
+	for ( unsigned int y = 1 ; y < m_BitboardSizeY - 1 ; y++ )
 	{
-		for ( std::size_t x = 1 ; x < m_BitboardSizeX - 1 ; x++ )
+		for ( unsigned int x = 1 ; x < m_BitboardSizeX - 1 ; x++ )
 		{
 			new_large_bitboard.SetBitboard(StepByOuterTotalistic(
 					m_BitboardList[(x  ) + (y  ) * m_BitboardSizeX],
@@ -50,7 +50,7 @@ void OuterTotalisticCA::Step()
 		0xfcfcfcfcfcfcfcfcULL,
 		0xfefefefefefefefeULL
 	};
-	for ( std::size_t i = 1 ; i < m_BitboardSizeY ; i ++)
+	for ( unsigned int i = 1 ; i < m_BitboardSizeY ; i ++)
 		new_large_bitboard.SetBitboard(
 				new_large_bitboard.GetBitboard(i * m_BitboardSizeX - 2) & MASK_X[m_SizeX % 8],
 				i * m_BitboardSizeX - 2);
@@ -66,13 +66,13 @@ void OuterTotalisticCA::Step()
 		0xffffffffffff0000ULL,
 		0xffffffffffffff00ULL
 	};
-	for ( std::size_t i = 1 ; i < m_BitboardSizeX ; i ++)
+	for ( unsigned int i = 1 ; i < m_BitboardSizeX ; i ++)
 		new_large_bitboard.SetBitboard(
 				new_large_bitboard.GetBitboard(i + m_BitboardSizeX * (m_BitboardSizeY - 2)) & MASK_Y[m_SizeY % 8],
 				i + m_BitboardSizeX * (m_BitboardSizeY - 2));
 
 	// copy back
-	for ( std::size_t i = 0 ; i < GetBitboardListSize() ; i ++ )
+	for ( unsigned int i = 0 ; i < GetBitboardListSize() ; i ++ )
 		m_BitboardList[i] = new_large_bitboard.GetBitboard(i);
 }
 

@@ -12,7 +12,7 @@ namespace BitboardCA
 
 		public:
 			/** constructor */
-			OuterTotalisticCA(std::size_t size_x, std::size_t size_y);
+			OuterTotalisticCA(unsigned int size_x, unsigned int size_y);
 
 			/** destructor */
 			virtual ~OuterTotalisticCA();

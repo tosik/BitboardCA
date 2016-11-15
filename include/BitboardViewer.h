@@ -22,14 +22,14 @@ namespace BitboardCA
 			void ViewBitboard(Bitboard b);
 
 			/** view LargeBitboard */
-			void ViewLargeBitboard(Bitboard * bitboards, std::size_t size_x, std::size_t siz_y);
+			void ViewLargeBitboard(Bitboard * bitboards, unsigned int size_x, unsigned int siz_y);
 
 			/** view LargeBitboard */
 			void ViewLargeBitboard(LargeBitboard & large_bitboard);
 			void ViewLargeBitboardForDebug(LargeBitboard & large_bitboard);
 
 			/** view one line Bitboard at position y */
-			void ViewBitboardLine(Bitboard b, std::size_t y);
+			void ViewBitboardLine(Bitboard b, unsigned int y);
 	};
 }
 

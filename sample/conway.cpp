@@ -11,7 +11,7 @@ class ConwaysGameOfLife
 	: public BCA::OuterTotalisticCA
 {
 	public:
-		ConwaysGameOfLife(std::size_t size_x, std::size_t size_y)
+		ConwaysGameOfLife(unsigned int size_x, unsigned int size_y)
 			: OuterTotalisticCA(size_x, size_y)
 		{
 		}

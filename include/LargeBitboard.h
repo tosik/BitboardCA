@@ -12,10 +12,10 @@ namespace BitboardCA
 	{
 		protected:
 			/** size of board */
-			std::size_t m_SizeX, m_SizeY;
+			unsigned int m_SizeX, m_SizeY;
 
 			/** number of bitboard */
-			std::size_t m_BitboardSizeX, m_BitboardSizeY;
+			unsigned int m_BitboardSizeX, m_BitboardSizeY;
 
 			/** bitboard array */
 			Bitboard * m_BitboardList;
@@ -23,46 +23,46 @@ namespace BitboardCA
 
 		public:
 			/** constructor */
-			LargeBitboard(std::size_t size_x, std::size_t size_y, bool direct_size_mode=false);
+			LargeBitboard(unsigned int size_x, unsigned int size_y, bool direct_size_mode=false);
 
 			/** destructor */
 			virtual ~LargeBitboard();
 
 			/** get board size of x */
-			std::size_t GetSizeX();
+			unsigned int GetSizeX();
 
 			/** get board size of y */
-			std::size_t GetSizeY();
+			unsigned int GetSizeY();
 
 			/** randomize board */
 			void Randomize();
 
 			/** all cells die */
 			void Clear();
-			void Clear(Bitboard * bitboards, std::size_t size);
+			void Clear(Bitboard * bitboards, unsigned int size);
 
 			/** get a state of cell */
-			std::size_t GetCellState(std::size_t x, std::size_t y);
+			unsigned int GetCellState(unsigned int x, unsigned int y);
 
 			/** set a state of cell */
-			void SetCellState(bool cell, std::size_t x, std::size_t y);
+			void SetCellState(bool cell, unsigned int x, unsigned int y);
 
 			/** get a bitboard */
-			Bitboard GetBitboard(std::size_t x, std::size_t y);
-			Bitboard GetBitboard(std::size_t i);
+			Bitboard GetBitboard(unsigned int x, unsigned int y);
+			Bitboard GetBitboard(unsigned int i);
 
 			/** set a bitboard */
-			void SetBitboard(Bitboard bitboard, std::size_t x, std::size_t y);
-			void SetBitboard(Bitboard bitboard, std::size_t i);
+			void SetBitboard(Bitboard bitboard, unsigned int x, unsigned int y);
+			void SetBitboard(Bitboard bitboard, unsigned int i);
 
 			/** get size of bitboard list */
-			std::size_t GetBitboardListSize();
+			unsigned int GetBitboardListSize();
 
 			/** get size x of bitboard list */
-			std::size_t GetBitboardListSizeX();
+			unsigned int GetBitboardListSizeX();
 
 			/** get size y of bitboard list */
-			std::size_t GetBitboardListSizeY();
+			unsigned int GetBitboardListSizeY();
 
 			/** get biboard list*/
 			Bitboard * GetBitboardList();
@@ -74,13 +74,13 @@ namespace BitboardCA
 
 		protected:
 			/** get bitboard from board array */
-			Bitboard GetBoard(std::size_t x, std::size_t y);
+			Bitboard GetBoard(unsigned int x, unsigned int y);
 
 			/** get shift size used when set/get cells */
-			inline std::size_t GetBitboardShiftSize(std::size_t x, std::size_t y);
+			inline unsigned int GetBitboardShiftSize(unsigned int x, unsigned int y);
 
 			/** get biboard index used when set/get cells */
-			inline std::size_t GetBitboardIndex(std::size_t x, std::size_t y);
+			inline unsigned int GetBitboardIndex(unsigned int x, unsigned int y);
 
 	};
 

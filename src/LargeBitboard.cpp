@@ -12,7 +12,7 @@ void DebugCheckSize(LargeBitboard * left, LargeBitboard * right)
 }
 
 
-LargeBitboard::LargeBitboard(std::size_t size_x, std::size_t size_y, bool direct_size_mode)
+LargeBitboard::LargeBitboard(unsigned int size_x, unsigned int size_y, bool direct_size_mode)
 {
 	m_SizeX = size_x;
 	m_SizeY = size_y;
@@ -43,17 +43,17 @@ Bitboard * LargeBitboard::GetBitboardList()
 }
 
 
-inline Bitboard LargeBitboard::GetBoard(std::size_t x, std::size_t y)
+inline Bitboard LargeBitboard::GetBoard(unsigned int x, unsigned int y)
 {
 	return m_BitboardList[x + y * 8];
 }
 
-std::size_t LargeBitboard::GetSizeX()
+unsigned int LargeBitboard::GetSizeX()
 {
 	return m_SizeX;
 }
 
-std::size_t LargeBitboard::GetSizeY()
+unsigned int LargeBitboard::GetSizeY()
 {
 	return m_SizeY;
 }
@@ -61,7 +61,7 @@ std::size_t LargeBitboard::GetSizeY()
 void LargeBitboard::Randomize()
 {
 	srand((unsigned)time(NULL));
-	for ( std::size_t i = 0 ; i < GetBitboardListSize() ; i ++ )
+	for ( unsigned int i = 0 ; i < GetBitboardListSize() ; i ++ )
 		// generate random number of 64 bit
 		m_BitboardList[i] =
 			rand() +
@@ -76,36 +76,36 @@ void LargeBitboard::Clear()
 	Clear(m_BitboardList, GetBitboardListSize());
 }
 
-void LargeBitboard::Clear(Bitboard * bitboards, std::size_t size)
+void LargeBitboard::Clear(Bitboard * bitboards, unsigned int size)
 {
 	// clear boards array by zero
-	for ( std::size_t i = 0 ; i < size ; i ++ )
+	for ( unsigned int i = 0 ; i < size ; i ++ )
 	{
 		bitboards[i] = 0ULL;
 	}
 }
 
-inline std::size_t LargeBitboard::GetBitboardIndex(std::size_t x, std::size_t y)
+inline unsigned int LargeBitboard::GetBitboardIndex(unsigned int x, unsigned int y)
 {
 	return x / 8 + y / 8 * m_BitboardSizeX + 1 + m_BitboardSizeX;
 }
-inline std::size_t LargeBitboard::GetBitboardShiftSize(std::size_t x, std::size_t y)
+inline unsigned int LargeBitboard::GetBitboardShiftSize(unsigned int x, unsigned int y)
 {
 	return ( 7 - x % 8 ) + ( 7 - y % 8 ) * 8;
 }
 
-std::size_t LargeBitboard::GetCellState(std::size_t x, std::size_t y)
+unsigned int LargeBitboard::GetCellState(unsigned int x, unsigned int y)
 {
-	std::size_t bitboard_index = GetBitboardIndex(x, y);
-	std::size_t shift_size = GetBitboardShiftSize(x, y);
+	unsigned int bitboard_index = GetBitboardIndex(x, y);
+	unsigned int shift_size = GetBitboardShiftSize(x, y);
 
 	return ( m_BitboardList[bitboard_index] >> ( shift_size ) )% 2;
 }
 
-void LargeBitboard::SetCellState(bool cell, std::size_t x, std::size_t y)
+void LargeBitboard::SetCellState(bool cell, unsigned int x, unsigned int y)
 {
-	std::size_t bitboard_index = GetBitboardIndex(x, y);
-	std::size_t shift_size = GetBitboardShiftSize(x, y);
+	unsigned int bitboard_index = GetBitboardIndex(x, y);
+	unsigned int shift_size = GetBitboardShiftSize(x, y);
 
 	if ( cell )
 		m_BitboardList[bitboard_index] |= ( (Bitboard)1 << shift_size );
@@ -113,37 +113,37 @@ void LargeBitboard::SetCellState(bool cell, std::size_t x, std::size_t y)
 		m_BitboardList[bitboard_index] &= (Bitboard)0xffffffffffffffffULL ^ ( (Bitboard)1 << shift_size );
 }
 
-Bitboard LargeBitboard::GetBitboard(std::size_t x, std::size_t y)
+Bitboard LargeBitboard::GetBitboard(unsigned int x, unsigned int y)
 {
 	return m_BitboardList[x + y * m_BitboardSizeX];
 }
 
-Bitboard LargeBitboard::GetBitboard(std::size_t i)
+Bitboard LargeBitboard::GetBitboard(unsigned int i)
 {
 	return m_BitboardList[i];
 }
 
-void LargeBitboard::SetBitboard(Bitboard b, std::size_t x, std::size_t y)
+void LargeBitboard::SetBitboard(Bitboard b, unsigned int x, unsigned int y)
 {
 	m_BitboardList[x + y * m_BitboardSizeX] = b;
 }
 
-void LargeBitboard::SetBitboard(Bitboard b, std::size_t i)
+void LargeBitboard::SetBitboard(Bitboard b, unsigned int i)
 {
 	m_BitboardList[i] = b;
 }
 
-std::size_t LargeBitboard::GetBitboardListSize()
+unsigned int LargeBitboard::GetBitboardListSize()
 {
 	return m_BitboardSizeX * m_BitboardSizeY;
 }
 
-std::size_t LargeBitboard::GetBitboardListSizeX()
+unsigned int LargeBitboard::GetBitboardListSizeX()
 {
 	return m_BitboardSizeX;
 }
 
-std::size_t LargeBitboard::GetBitboardListSizeY()
+unsigned int LargeBitboard::GetBitboardListSizeY()
 {
 	return m_BitboardSizeY;
 }
@@ -151,28 +151,28 @@ std::size_t LargeBitboard::GetBitboardListSizeY()
 void LargeBitboard::Copy(LargeBitboard * large)
 {
 	DebugCheckSize(this, large);
-	for ( std::size_t i = 0 ; i < GetBitboardListSize() ; i ++ )
+	for ( unsigned int i = 0 ; i < GetBitboardListSize() ; i ++ )
 		m_BitboardList[i] = large->GetBitboardList()[i];
 }
 
 void LargeBitboard::Or(LargeBitboard * large)
 {
 	DebugCheckSize(this, large);
-	for ( std::size_t i = 0 ; i < GetBitboardListSize() ; i ++ )
+	for ( unsigned int i = 0 ; i < GetBitboardListSize() ; i ++ )
 		m_BitboardList[i] |= large->GetBitboardList()[i];
 }
 
 void LargeBitboard::And(LargeBitboard * large)
 {
 	DebugCheckSize(this, large);
-	for ( std::size_t i = 0 ; i < GetBitboardListSize() ; i ++ )
+	for ( unsigned int i = 0 ; i < GetBitboardListSize() ; i ++ )
 		m_BitboardList[i] &= large->GetBitboardList()[i];
 }
 
 void LargeBitboard::Xor(LargeBitboard * large)
 {
 	DebugCheckSize(this, large);
-	for ( std::size_t i = 0 ; i < GetBitboardListSize() ; i ++ )
+	for ( unsigned int i = 0 ; i < GetBitboardListSize() ; i ++ )
 		m_BitboardList[i] ^= large->GetBitboardList()[i];
 }
 

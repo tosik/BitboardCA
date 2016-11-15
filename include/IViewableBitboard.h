@@ -10,13 +10,13 @@ namespace BitboardCA
 	{
 		public:
 			/** get board size of x */
-			virtual std::size_t GetSizeX() = 0;
+			virtual unsigned int GetSizeX() = 0;
 
 			/** get board size of y */
-			virtual std::size_t GetSizeY() = 0;
+			virtual unsigned int GetSizeY() = 0;
 
 			/** get a state of cell */
-			virtual std::size_t GetCellState(std::size_t x, std::size_t y) = 0;
+			virtual unsigned int GetCellState(unsigned int x, unsigned int y) = 0;
 	};
 
 }
