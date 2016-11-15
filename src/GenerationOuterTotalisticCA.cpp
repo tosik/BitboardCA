@@ -1,7 +1,5 @@
 #include "GenerationOuterTotalisticCA.h"
 
-#include "BitboardViewer.h"
-
 using namespace BitboardCA;
 
 

@@ -5,8 +5,8 @@ RELEASE_LIB_NAME= $(LIBDIR)/lib$(PROJECT_NAME).a
 DEBUG_LIB_NAME	= $(LIBDIR)/lib$(PROJECT_NAME)d.a
 RELEASE_OBJDIR	= obj_release/
 DEBUG_OBJDIR	= obj_debug/
-SRCS		= OuterTotalisticCA.cpp GenerationOuterTotalisticCA.cpp BitboardViewer.cpp LargeBitboard.cpp
-HDRS		= $(INCDIR)/OuterTotalisticCA.h $(INCDIR)/GenerationOuterTotalisticCA.h $(INCDIR)/BitboardViewer.h $(INCDIR)/LargeBitboard.h
+SRCS		= OuterTotalisticCA.cpp GenerationOuterTotalisticCA.cpp LargeBitboard.cpp
+HDRS		= $(INCDIR)/OuterTotalisticCA.h $(INCDIR)/GenerationOuterTotalisticCA.h $(INCDIR)/LargeBitboard.h
 OBJS		= $(SRCS:.cpp=.o)
 RELEASE_OBJS	= $(OBJS:%=$(RELEASE_OBJDIR)/%)
 DEBUG_OBJS	= $(OBJS:%=$(DEBUG_OBJDIR)/%)

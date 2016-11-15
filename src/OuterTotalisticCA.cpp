@@ -1,7 +1,5 @@
 #include "OuterTotalisticCA.h"
 
-#include "BitboardViewer.h"
-
 using namespace BitboardCA;
 
 OuterTotalisticCA::OuterTotalisticCA(unsigned int size_x, unsigned int size_y)
