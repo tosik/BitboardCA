@@ -60,15 +60,14 @@ unsigned int LargeBitboard::GetSizeY()
 
 void LargeBitboard::Randomize()
 {
-	srand((unsigned)time(NULL));
 	for ( unsigned int i = 0 ; i < GetBitboardListSize() ; i ++ )
 		// generate random number of 64 bit
 		m_BitboardList[i] =
-			rand() +
-			rand() * 0x0000000000010000ULL +
-			rand() * 0x0000001000000000ULL +
-			rand() * 0x0100000000000000ULL +
-			( rand() % 0xf ) * 0x1000000000000000ULL;
+			GetRandom() +
+			GetRandom() * 0x0000000000010000ULL +
+			GetRandom() * 0x0000001000000000ULL +
+			GetRandom() * 0x0100000000000000ULL +
+			( GetRandom() % 0xf ) * 0x1000000000000000ULL;
 }
 
 void LargeBitboard::Clear()

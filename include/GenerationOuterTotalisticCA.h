@@ -14,7 +14,7 @@ namespace BitboardCA
 		private:
 			unsigned int m_States;
 			OuterTotalisticCA * m_pInnerCA;
-			std::vector<LargeBitboard *> m_pWeakList;
+			LargeBitboard ** m_pWeakList;
 
 		public:
 			/** constructor */

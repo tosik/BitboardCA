@@ -5,20 +5,20 @@ using namespace BitboardCA;
 
 GenerationOuterTotalisticCA::GenerationOuterTotalisticCA(unsigned int size_x, unsigned int size_y, unsigned int states)
 	: m_States(states)
-	, m_pInnerCA(NULL)
+	, m_pInnerCA(0)
 {
 	if ( states < 2 )
 		throw; // TODO : exception
 
+	m_pWeakList = new LargeBitboard*[states];
 	for ( unsigned int i = 0 ; i < states ; i ++ )
-		m_pWeakList.push_back(new LargeBitboard(size_x, size_y, false));
+		m_pWeakList[i] = new LargeBitboard(size_x, size_y, false);
 }
 
 GenerationOuterTotalisticCA::~GenerationOuterTotalisticCA()
 {
-	for ( std::vector<LargeBitboard*>::iterator it = m_pWeakList.begin() ;
-	   it != m_pWeakList.end() ; it ++ )
-		delete (*it);
+	for ( unsigned int i = 0 ; i < m_States ; i ++ )
+		delete (m_pWeakList[i]);
 }
 
 void GenerationOuterTotalisticCA::Step()
