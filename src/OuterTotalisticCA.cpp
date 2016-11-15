@@ -13,7 +13,6 @@ OuterTotalisticCA::~OuterTotalisticCA()
 
 void OuterTotalisticCA::Step()
 {
-	BitboardViewer viewer;
 	LargeBitboard new_large_bitboard(m_BitboardSizeX, m_BitboardSizeY, true);
 	new_large_bitboard.Clear();
 
